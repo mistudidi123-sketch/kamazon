@@ -53,12 +53,12 @@ type Product = {
   name: string;
   price: number;
   image: string;
-  imagePosition?: string;
+  imageClass?: string;
 };
 
 type CartLine = Product & { quantity: number };
 
-const products: Record<string, Product> = {
+const products = {
   romance: {
     id: "romance",
     name: "The Romance Gift Set",
@@ -70,23 +70,23 @@ const products: Record<string, Product> = {
     name: "CloudRun Trainers",
     price: 289,
     image: categoryGrid,
-    imagePosition: "left top",
+    imageClass: "object-left-top",
   },
   lamp: {
     id: "lamp",
     name: "Aura Ceramic Table Lamp",
     price: 142,
     image: refreshSpace,
-    imagePosition: "left center",
+    imageClass: "object-left",
   },
   headphones: {
     id: "headphones",
     name: "Aurora ANC Headphones",
     price: 489,
     image: electronicsGrid,
-    imagePosition: "left center",
+    imageClass: "object-left",
   },
-};
+} satisfies Record<string, Product>;
 
 const formatPrice = (price: number) => `${price.toLocaleString("ro-RO")} lei`;
 
@@ -292,7 +292,7 @@ function Index() {
                 <ul className="divide-y divide-border">
                   {cart.map((item) => (
                     <li key={item.id} className="flex gap-4 py-4">
-                      <img src={item.image} alt="" className="size-20 shrink-0 rounded-md bg-muted object-cover" style={{ objectPosition: item.imagePosition }} />
+                      <img src={item.image} alt="" className={`size-20 shrink-0 rounded-md bg-muted object-cover ${item.imageClass ?? "object-center"}`} />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-start justify-between gap-2">
                           <div><h3 className="text-sm font-bold leading-5">{item.name}</h3><p className="mt-0.5 text-sm text-muted-foreground">{formatPrice(item.price)} each</p></div>

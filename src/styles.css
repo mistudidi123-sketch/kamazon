@@ -19,6 +19,8 @@
  */
 
 @theme inline {
+  --font-display: "Sora", sans-serif;
+  --font-body: "Manrope", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -59,24 +61,36 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-header: var(--header);
+  --color-header-foreground: var(--header-foreground);
+  --color-header-muted: var(--header-muted);
+  --color-subnav: var(--subnav);
+  --color-hero: var(--hero);
+  --color-hero-foreground: var(--hero-foreground);
+  --color-hero-muted: var(--hero-muted);
+  --color-search-muted: var(--search-muted);
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
+  --color-promo: var(--promo);
+  --color-promo-foreground: var(--promo-foreground);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --radius: 0.375rem;
+  --background: oklch(0.945 0.006 230);
+  --foreground: oklch(0.206 0.025 250);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.206 0.025 250);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
+  --primary: oklch(0.259 0.037 249);
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
   --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --accent: oklch(0.825 0.131 78);
+  --accent-foreground: oklch(0.206 0.025 250);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(0.929 0.013 255.508);
@@ -95,6 +109,18 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+  --header: oklch(0.206 0.025 250);
+  --header-foreground: oklch(1 0 0);
+  --header-muted: oklch(0.78 0.01 250);
+  --subnav: oklch(0.259 0.037 249);
+  --hero: oklch(0.206 0.025 250);
+  --hero-foreground: oklch(1 0 0);
+  --hero-muted: oklch(0.82 0.012 250);
+  --search-muted: oklch(0.94 0.005 250);
+  --cta: oklch(0.89 0.174 94);
+  --cta-foreground: oklch(0.206 0.025 250);
+  --promo: oklch(0.762 0.136 219);
+  --promo-foreground: oklch(1 0 0);
 }
 
 .dark {
@@ -140,5 +166,93 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    margin: 0;
+    letter-spacing: 0;
+  }
+
+  button,
+  a,
+  input {
+    letter-spacing: 0;
+  }
+}
+
+@utility outline-focus {
+  outline: 1px solid transparent;
+  outline-offset: -2px;
+  &:hover,
+  &:focus-visible {
+    outline-color: currentColor;
+  }
+}
+
+@utility shop-card {
+  display: flex;
+  min-height: 390px;
+  flex-direction: column;
+  background: var(--card);
+  padding: 1.25rem;
+  box-shadow: 0 3px 12px color-mix(in oklab, var(--foreground) 12%, transparent);
+  & h2 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    line-height: 1.35;
+    font-weight: 650;
+  }
+  & > a:last-child {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    color: var(--subnav);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+  &:hover {
+    transform: translateY(-3px);
+  }
+  transition: transform 180ms ease;
+}
+
+@utility slider-control {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  display: grid;
+  width: 2.75rem;
+  height: 4.5rem;
+  transform: translateY(-50%);
+  place-items: center;
+  color: var(--hero-foreground);
+  filter: drop-shadow(0 1px 2px color-mix(in oklab, var(--foreground) 70%, transparent));
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+  }
+}
+
+.amazon-logo {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  padding: 0.4rem 0.45rem 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--header-foreground);
+}
+
+.amazon-logo i {
+  position: absolute;
+  bottom: 0.28rem;
+  left: 1.05rem;
+  width: 2.9rem;
+  height: 0.55rem;
+  border-bottom: 3px solid var(--accent);
+  border-radius: 50%;
+  transform: rotate(3deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-card {
+    transition: none;
   }
 }

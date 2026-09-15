@@ -35,9 +35,7 @@ function Header() {
           <input className="min-w-0 flex-1 bg-card px-3 py-2.5 text-sm text-foreground outline-none" placeholder="Search Amazon" aria-label="Search Amazon" />
           <Button type="submit" className="h-auto w-12 rounded-none bg-accent p-0 text-accent-foreground hover:bg-accent" aria-label="Search"><Search className="size-5" /></Button>
         </form>
-        <Link to="/cart" className="relative flex items-end gap-1 px-2 py-1.5 font-semibold outline-focus" aria-label={`Cart, ${itemCount} items`}>
-          <ShoppingCart className="size-8" /><span className="absolute left-7 top-0 text-sm text-accent">{itemCount}</span><span className="hidden text-sm sm:block">Cart</span>
-        </Link>
+        <CartNavLink />
       </div>
       <div className="bg-subnav px-3 py-2 text-sm font-semibold"><div className="mx-auto flex max-w-[1500px] items-center gap-2"><Menu className="size-5" /> All</div></div>
       <div className="bg-subnav/90 px-2 py-1 text-sm md:hidden"><LocationPicker className="flex" /></div>

@@ -122,11 +122,7 @@ function Index() {
             <small className="block text-[11px]">Returns</small>
             <strong className="block text-sm">&amp; Orders</strong>
           </a>
-          <Link to="/cart" className="relative flex items-end gap-1 px-2 py-1.5 font-semibold outline-focus" aria-label={`Open cart, ${itemCount} items`}>
-            <ShoppingCart className="size-8" />
-            <span className="absolute left-7 top-0 text-sm text-accent" aria-hidden="true">{itemCount}</span>
-            <span className="hidden text-sm sm:block">Cart</span>
-          </Link>
+          <CartNavLink />
         </div>
 
         <nav className="bg-subnav text-sm font-semibold">

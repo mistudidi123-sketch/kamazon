@@ -40,7 +40,7 @@ function Header() {
         </Link>
       </div>
       <div className="bg-subnav px-3 py-2 text-sm font-semibold"><div className="mx-auto flex max-w-[1500px] items-center gap-2"><Menu className="size-5" /> All</div></div>
-      <div className="bg-subnav/90 px-4 py-3 text-sm md:hidden"><span className="flex items-center gap-2"><MapPin className="size-5" /> Deliver to Romania <ChevronDown className="size-4" /></span></div>
+      <div className="bg-subnav/90 px-2 py-1 text-sm md:hidden"><LocationPicker className="flex" /></div>
     </header>
   );
 }
@@ -51,7 +51,7 @@ function Price({ value }: { value: number }) {
 }
 
 function CartPage() {
-  const { cart, itemCount, subtotal, changeQuantity, removeItem } = useCart();
+  const { cart, saved, itemCount, subtotal, changeQuantity, removeItem, saveForLater, moveToCart, removeSaved } = useCart();
   return (
     <div className="min-h-screen bg-background font-body text-foreground">
       <Header />

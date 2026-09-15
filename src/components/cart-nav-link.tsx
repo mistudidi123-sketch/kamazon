@@ -34,7 +34,7 @@ export function CartNavLink({ className = "" }: { className?: string }) {
         >
           {itemCount}
         </span>
-        <CartGlyph className="mt-3 h-6 w-9 text-header-foreground" />
+        <CartGlyph className="mt-2 h-6 w-9 text-header-foreground" />
       </span>
       <span className="hidden pb-0.5 text-sm sm:block">Cart</span>
     </Link>

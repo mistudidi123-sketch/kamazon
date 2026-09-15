@@ -153,7 +153,7 @@ function Index() {
               <p className="inline-flex rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase text-accent-foreground">Seasonal campaign</p>
               <h1 className="mt-4 max-w-[17ch] font-display text-4xl font-semibold leading-tight md:text-5xl">Gifts that say it better than words.</h1>
               <p className="mt-3 max-w-[46ch] text-base text-hero-muted md:text-lg">Explore Valentine's Day picks for every kind of love, delivered across Romania.</p>
-              <button type="button" onClick={() => addToCart(products.romance)} className="mt-6 inline-flex rounded-md bg-accent px-5 py-3 text-sm font-bold text-accent-foreground outline-focus">Add gift set · 189 lei</button>
+              <button type="button" onClick={() => addToCart(products.romance)} className="mt-6 inline-flex rounded-md bg-accent px-5 py-3 text-sm font-bold text-accent-foreground outline-focus">Add gift set · Rs 189</button>
             </div>
             <div className="relative mx-auto w-full max-w-[680px]">
               <img src={valentinesGiftStack} width={1200} height={900} alt="Perfume, roses, chocolate, and jewelry arranged as Valentine's gifts" className="aspect-[4/3] w-full object-contain" />
@@ -169,7 +169,7 @@ function Index() {
             <img src={categoryGrid} width={1200} height={1200} loading="lazy" alt="Shoes, headphones, home comforts, and beauty products" className="mt-3 aspect-square w-full object-cover" />
             <div className="mt-2 grid grid-cols-2 text-center text-xs font-semibold"><span>Computers &amp; Accessories</span><span>Electronics</span><span className="pt-2">Home</span><span className="pt-2">Beauty</span></div>
             <div className="mt-auto flex items-end justify-between gap-3 pt-5">
-              <span className="text-sm font-bold">289 lei</span>
+              <span className="text-sm font-bold">Rs 289</span>
               <button type="button" onClick={() => addToCart(products.trainers)} className="rounded-md bg-cta px-3 py-2 text-xs font-bold text-cta-foreground">Add to cart</button>
             </div>
           </article>
@@ -179,7 +179,7 @@ function Index() {
             <img src={refreshSpace} width={1200} height={800} loading="lazy" alt="Warm ceramic lamp and knitted throw in a calm living space" className="mt-3 aspect-[4/3] w-full object-cover" />
             <div className="mt-2 flex justify-between text-xs font-semibold"><span>Lighting</span><span>Home comforts</span></div>
             <div className="mt-auto flex items-end justify-between gap-3 pt-5">
-              <span className="text-sm font-bold">142 lei</span>
+              <span className="text-sm font-bold">Rs 142</span>
               <button type="button" onClick={() => addToCart(products.lamp)} className="rounded-md bg-cta px-3 py-2 text-xs font-bold text-cta-foreground">Add to cart</button>
             </div>
           </article>
@@ -189,7 +189,7 @@ function Index() {
             <img src={electronicsGrid} width={1500} height={700} loading="lazy" alt="Wireless headphones, smartwatch, and portable speaker" className="mt-3 aspect-[4/3] w-full object-cover" />
             <p className="mt-3 text-sm text-muted-foreground">Headphones, wearables and portable audio.</p>
             <div className="mt-auto flex items-end justify-between gap-3 pt-5">
-              <span className="text-sm font-bold">489 lei</span>
+              <span className="text-sm font-bold">Rs 489</span>
               <button type="button" onClick={() => addToCart(products.headphones)} className="rounded-md bg-cta px-3 py-2 text-xs font-bold text-cta-foreground">Add to cart</button>
             </div>
           </article>

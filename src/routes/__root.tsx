@@ -84,6 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Amazon Romania" },
       { property: "og:description", content: "Amazon Romania shopping experience" },
       { property: "og:type", content: "website" },
+      { name: "google-site-verification", content: "B8OMO93FkiSwG-7mmSOF-1Yqd6Rb9y8c4_36YO6kmw0" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
     ],

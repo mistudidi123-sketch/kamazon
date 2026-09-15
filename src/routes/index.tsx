@@ -9,6 +9,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 
+import { CartNavLink } from "@/components/cart-nav-link";
 import { LocationPicker } from "@/components/location-picker";
 import categoryGrid from "@/assets/category-grid.jpg";
 import electronicsGrid from "@/assets/electronics-grid.jpg";

@@ -1,19 +1,22 @@
-# Show the cart item quantity at the top of the Cart page
+# Show the item count on top of the header cart symbol (Amazon-style)
 
 ## What you'll see
 
-At the top centre of the cart page (right below the Cart / Buy Again / Whole Foods code tabs), the item quantity is written plainly, Amazon-style:
+The header cart icon gets Amazon's exact look from your screenshot: the quantity is written directly on top of the cart symbol.
 
 ```text
-                 3 items
+        (22)
+      🛒 Cart
 ```
 
-- Just the count in words — e.g. "1 item" or "3 items" — no icon, no extra heading.
-- Updates live as you add items, change quantity with + / −, or delete items.
-- Shows "0 items" when the cart is empty; everything else on the page stays unchanged.
+- The count appears in bold orange/amber, sitting above and centred on the cart icon.
+- Example from your reference: "22" floating over the cart symbol, with "Cart" beside it.
+- Updates live when you add items, change quantity, or delete items.
+- Applied to the header cart icon on both the homepage and the cart page, so it looks the same everywhere.
+- Nothing else on the page changes.
 
 ## How it works (technical)
 
-- File: `src/routes/cart.tsx`, `CartPage` component.
-- The page already has `itemCount` from the shared cart context (`useCart`), so this is one small presentational line at the top of `<main>` — no logic changes.
-- Styled with existing semantic tokens to match the page.
+- File: `src/lib/cart-context.tsx` provides `itemCount` — already used by both page headers in `src/routes/index.tsx` and `src/routes/cart.tsx`.
+- Only a small restyle of the cart icon block in each header: reposition the existing count span so it is centred directly above the cart symbol, bolder styling to match the Amazon reference.
+- No logic, cart state, or totals changes.

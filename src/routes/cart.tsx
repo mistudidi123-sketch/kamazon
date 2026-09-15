@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronDown, ChevronRight, MapPin, Menu, Search, ShoppingCart } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, Search, ShoppingCart } from "lucide-react";
 
 import { LocationPicker } from "@/components/location-picker";
 import { Button } from "@/components/ui/button";

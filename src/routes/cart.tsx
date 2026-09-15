@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronDown, ChevronRight, MapPin, Menu, Search, ShoppingCart } from "lucide-react";
 
+import { LocationPicker } from "@/components/location-picker";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 
@@ -28,10 +29,7 @@ function Header() {
     <header className="bg-header text-header-foreground">
       <div className="mx-auto flex min-h-15 max-w-[1500px] items-center gap-2 px-3 py-2">
         <AmazonLogo />
-        <Link to="/" className="hidden items-end gap-1 px-2 py-1.5 leading-tight outline-focus md:flex">
-          <MapPin className="mb-0.5 size-4" aria-hidden="true" />
-          <span><small className="block text-[11px] text-header-muted">Deliver to</small><strong className="block text-sm">Romania</strong></span>
-        </Link>
+        <LocationPicker className="hidden md:flex" />
         <form className="flex min-w-0 flex-1 overflow-hidden rounded-md ring-2 ring-transparent focus-within:ring-accent" onSubmit={(event) => event.preventDefault()}>
           <Button type="button" variant="ghost" className="h-auto rounded-none bg-search-muted px-3 text-xs text-muted-foreground hover:bg-search-muted" aria-label="Select search category">All <ChevronDown className="size-3" /></Button>
           <input className="min-w-0 flex-1 bg-card px-3 py-2.5 text-sm text-foreground outline-none" placeholder="Search Amazon" aria-label="Search Amazon" />

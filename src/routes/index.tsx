@@ -3,7 +3,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  MapPin,
+  
   Menu,
   Search,
   ShoppingCart,

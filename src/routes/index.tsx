@@ -3,12 +3,13 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  MapPin,
+  
   Menu,
   Search,
   ShoppingCart,
 } from "lucide-react";
 
+import { LocationPicker } from "@/components/location-picker";
 import categoryGrid from "@/assets/category-grid.jpg";
 import electronicsGrid from "@/assets/electronics-grid.jpg";
 import globalShipping from "@/assets/global-shipping.jpg";
@@ -98,13 +99,7 @@ function Index() {
         <div className="mx-auto flex min-h-15 max-w-[1500px] items-center gap-2 px-3 py-2">
           <AmazonLogo />
 
-          <a href="#" className="hidden items-end gap-1 px-2 py-1.5 leading-tight outline-focus md:flex">
-            <MapPin className="mb-0.5 size-4" aria-hidden="true" />
-            <span>
-              <small className="block text-[11px] text-header-muted">Deliver to</small>
-              <strong className="block text-sm">Romania</strong>
-            </span>
-          </a>
+          <LocationPicker className="hidden md:flex" />
 
           <form className="flex min-w-0 flex-1 overflow-hidden rounded-md ring-2 ring-transparent focus-within:ring-accent" onSubmit={(event) => event.preventDefault()}>
             <button type="button" className="flex items-center gap-2 bg-search-muted px-3 text-xs text-muted-foreground" aria-label="Select search category">

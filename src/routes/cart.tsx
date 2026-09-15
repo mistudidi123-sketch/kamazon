@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronDown, ChevronRight, MapPin, Menu, Search, ShoppingCart } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, Search, ShoppingCart } from "lucide-react";
 
+import { LocationPicker } from "@/components/location-picker";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 
@@ -28,10 +29,7 @@ function Header() {
     <header className="bg-header text-header-foreground">
       <div className="mx-auto flex min-h-15 max-w-[1500px] items-center gap-2 px-3 py-2">
         <AmazonLogo />
-        <Link to="/" className="hidden items-end gap-1 px-2 py-1.5 leading-tight outline-focus md:flex">
-          <MapPin className="mb-0.5 size-4" aria-hidden="true" />
-          <span><small className="block text-[11px] text-header-muted">Deliver to</small><strong className="block text-sm">Romania</strong></span>
-        </Link>
+        <LocationPicker className="hidden md:flex" />
         <form className="flex min-w-0 flex-1 overflow-hidden rounded-md ring-2 ring-transparent focus-within:ring-accent" onSubmit={(event) => event.preventDefault()}>
           <Button type="button" variant="ghost" className="h-auto rounded-none bg-search-muted px-3 text-xs text-muted-foreground hover:bg-search-muted" aria-label="Select search category">All <ChevronDown className="size-3" /></Button>
           <input className="min-w-0 flex-1 bg-card px-3 py-2.5 text-sm text-foreground outline-none" placeholder="Search Amazon" aria-label="Search Amazon" />
@@ -42,7 +40,7 @@ function Header() {
         </Link>
       </div>
       <div className="bg-subnav px-3 py-2 text-sm font-semibold"><div className="mx-auto flex max-w-[1500px] items-center gap-2"><Menu className="size-5" /> All</div></div>
-      <div className="bg-subnav/90 px-4 py-3 text-sm md:hidden"><span className="flex items-center gap-2"><MapPin className="size-5" /> Deliver to Romania <ChevronDown className="size-4" /></span></div>
+      <div className="bg-subnav/90 px-2 py-1 text-sm md:hidden"><LocationPicker className="flex" /></div>
     </header>
   );
 }
@@ -53,7 +51,7 @@ function Price({ value }: { value: number }) {
 }
 
 function CartPage() {
-  const { cart, itemCount, subtotal, changeQuantity, removeItem } = useCart();
+  const { cart, saved, itemCount, subtotal, changeQuantity, removeItem, saveForLater, moveToCart, removeSaved } = useCart();
   return (
     <div className="min-h-screen bg-background font-body text-foreground">
       <Header />
@@ -94,12 +92,35 @@ function CartPage() {
                       <Button type="button" variant="ghost" size="icon" className="h-9" onClick={() => changeQuantity(item.id, 1)} aria-label={`Increase ${item.name} quantity`}>+</Button>
                     </div>
                     <Button type="button" variant="outline" className="h-10" onClick={() => removeItem(item.id)}>Delete</Button>
-                    <Button type="button" variant="outline" className="h-10">Save for later</Button>
+                    <Button type="button" variant="outline" className="h-10" onClick={() => saveForLater(item.id)}>Save for later</Button>
                   </div>
                 </div>
                 <div className="hidden text-right sm:block"><Price value={item.price * item.quantity} /></div>
               </article>
             ))}
+          </section>
+        )}
+
+        {saved.length > 0 && (
+          <section aria-label="Saved for later" className="mt-8 bg-card px-4 py-5">
+            <h2 className="font-display text-xl font-semibold">Saved for later ({saved.length} {saved.length === 1 ? "item" : "items"})</h2>
+            <div className="mt-4 divide-y divide-border">
+              {saved.map((item) => (
+                <article key={item.id} className="grid grid-cols-[88px_1fr] gap-4 py-5 sm:grid-cols-[120px_1fr_auto]">
+                  <img src={item.image} alt={item.name} className={`aspect-square w-full rounded-md bg-muted object-cover ${item.imageClass ?? "object-center"}`} />
+                  <div className="min-w-0">
+                    <h3 className="text-base font-semibold leading-6">{item.name}</h3>
+                    <div className="mt-2 sm:hidden"><Price value={item.price} /></div>
+                    <p className="mt-1 text-sm text-muted-foreground">Quantity: {item.quantity}</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <Button type="button" variant="outline" className="h-10" onClick={() => moveToCart(item.id)}>Move to cart</Button>
+                      <Button type="button" variant="outline" className="h-10" onClick={() => removeSaved(item.id)}>Delete</Button>
+                    </div>
+                  </div>
+                  <div className="hidden text-right sm:block"><Price value={item.price * item.quantity} /></div>
+                </article>
+              ))}
+            </div>
           </section>
         )}
 

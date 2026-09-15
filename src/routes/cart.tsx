@@ -92,12 +92,35 @@ function CartPage() {
                       <Button type="button" variant="ghost" size="icon" className="h-9" onClick={() => changeQuantity(item.id, 1)} aria-label={`Increase ${item.name} quantity`}>+</Button>
                     </div>
                     <Button type="button" variant="outline" className="h-10" onClick={() => removeItem(item.id)}>Delete</Button>
-                    <Button type="button" variant="outline" className="h-10">Save for later</Button>
+                    <Button type="button" variant="outline" className="h-10" onClick={() => saveForLater(item.id)}>Save for later</Button>
                   </div>
                 </div>
                 <div className="hidden text-right sm:block"><Price value={item.price * item.quantity} /></div>
               </article>
             ))}
+          </section>
+        )}
+
+        {saved.length > 0 && (
+          <section aria-label="Saved for later" className="mt-8 bg-card px-4 py-5">
+            <h2 className="font-display text-xl font-semibold">Saved for later ({saved.length} {saved.length === 1 ? "item" : "items"})</h2>
+            <div className="mt-4 divide-y divide-border">
+              {saved.map((item) => (
+                <article key={item.id} className="grid grid-cols-[88px_1fr] gap-4 py-5 sm:grid-cols-[120px_1fr_auto]">
+                  <img src={item.image} alt={item.name} className={`aspect-square w-full rounded-md bg-muted object-cover ${item.imageClass ?? "object-center"}`} />
+                  <div className="min-w-0">
+                    <h3 className="text-base font-semibold leading-6">{item.name}</h3>
+                    <div className="mt-2 sm:hidden"><Price value={item.price} /></div>
+                    <p className="mt-1 text-sm text-muted-foreground">Quantity: {item.quantity}</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <Button type="button" variant="outline" className="h-10" onClick={() => moveToCart(item.id)}>Move to cart</Button>
+                      <Button type="button" variant="outline" className="h-10" onClick={() => removeSaved(item.id)}>Delete</Button>
+                    </div>
+                  </div>
+                  <div className="hidden text-right sm:block"><Price value={item.price * item.quantity} /></div>
+                </article>
+              ))}
+            </div>
           </section>
         )}
 

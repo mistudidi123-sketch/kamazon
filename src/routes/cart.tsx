@@ -25,7 +25,7 @@ function AmazonLogo() {
 }
 
 function Header() {
-  const { itemCount } = useCart();
+  
   return (
     <header className="bg-header text-header-foreground">
       <div className="mx-auto flex min-h-15 max-w-[1500px] items-center gap-2 px-3 py-2">

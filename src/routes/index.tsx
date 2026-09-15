@@ -6,7 +6,7 @@ import {
   
   Menu,
   Search,
-  ShoppingCart,
+  
 } from "lucide-react";
 
 import { CartNavLink } from "@/components/cart-nav-link";

@@ -47,7 +47,7 @@ function Header() {
 
 function Price({ value }: { value: number }) {
   const [whole, cents] = value.toFixed(2).split(".");
-  return <span className="whitespace-nowrap font-bold"><span className="text-xl">{Number(whole).toLocaleString("ro-RO")}</span><sup className="text-xs">{cents}</sup><span className="ml-1 text-sm">lei</span></span>;
+  return <span className="whitespace-nowrap font-bold"><span className="text-xl">{Number(whole).toLocaleString("en-IN")}</span><sup className="text-xs">{cents}</sup><span className="mr-1 text-sm">Rs</span></span>;
 }
 
 function CartPage() {

@@ -1,23 +1,19 @@
-# Show cart item count at the top centre of the Cart page
+# Show the cart item quantity at the top of the Cart page
 
 ## What you'll see
 
-The cart page gets an Amazon-style header at the top centre of the cart content (right below the Cart / Buy Again tabs):
+At the top centre of the cart page (right below the Cart / Buy Again / Whole Foods code tabs), the item quantity is written plainly, Amazon-style:
 
 ```text
-        ┌──────────────────────────────┐
-        │   🛒 (3)  Shopping Cart (3)  │
-        └──────────────────────────────┘
+                 3 items
 ```
 
-- A cart icon with the item count badge on it, centred at the top of the cart area.
-- Text next to it: "Shopping Cart (N items)" — using the same wording Amazon uses.
-- The count updates live: adding items, changing + / − quantity, or removing items all update the badge and text instantly.
-- When the cart is empty, it reads "Shopping Cart (0 items)" (empty-cart state below is unchanged).
+- Just the count in words — e.g. "1 item" or "3 items" — no icon, no extra heading.
+- Updates live as you add items, change quantity with + / −, or delete items.
+- Shows "0 items" when the cart is empty; everything else on the page stays unchanged.
 
 ## How it works (technical)
 
 - File: `src/routes/cart.tsx`, `CartPage` component.
-- The page already has `itemCount` from the shared cart context (`useCart`), so no state or logic changes — only a small presentational block added at the top of `<main>`.
-- Styling uses the existing semantic tokens (header/accent colours) already used on the page, so it matches the current Amazon look and dark-mode behaviour.
-- No changes to cart logic, totals, or any other page.
+- The page already has `itemCount` from the shared cart context (`useCart`), so this is one small presentational line at the top of `<main>` — no logic changes.
+- Styled with existing semantic tokens to match the page.

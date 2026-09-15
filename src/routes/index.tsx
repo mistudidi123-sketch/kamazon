@@ -97,7 +97,7 @@ function Index() {
   return (
     <div className="min-h-screen bg-background font-body text-foreground">
       <header className="bg-header text-header-foreground">
-        <div className="mx-auto flex min-h-15 max-w-[1500px] items-center gap-2 px-3 py-2">
+        <div className="flex min-h-15 items-center gap-2 px-3 py-2">
           <AmazonLogo />
 
           <LocationPicker className="hidden md:flex" />
@@ -127,7 +127,7 @@ function Index() {
         </div>
 
         <nav className="bg-subnav text-sm font-semibold">
-          <div className="mx-auto flex max-w-[1500px] items-center gap-1 overflow-x-auto px-3">
+          <div className="flex items-center gap-1 overflow-x-auto px-3">
             <a href="#" className="flex shrink-0 items-center gap-1 px-2 py-2 outline-focus"><Menu className="size-5" /> All</a>
             {navItems.map((item) => <a key={item} href="#" className="shrink-0 px-2 py-2 outline-focus">{item}</a>)}
             <a href="#" className="ml-auto hidden shrink-0 px-2 py-2 outline-focus md:block">Shop deals in Electronics</a>
@@ -136,7 +136,7 @@ function Index() {
       </header>
 
       <main>
-        <section className="relative mx-auto max-w-[1500px] overflow-hidden bg-hero text-hero-foreground">
+        <section className="relative overflow-hidden bg-hero text-hero-foreground">
           <div className="absolute left-5 top-0 z-20 w-[430px] max-w-[calc(100%-2.5rem)] rounded-b-md bg-card p-4 text-card-foreground shadow-xl">
             <p className="text-sm font-semibold leading-5">We're showing you items that ship to RO. To see items that ship to a different country, change your delivery address.</p>
             <div className="mt-3 flex justify-end gap-3">
@@ -160,7 +160,7 @@ function Index() {
           <button type="button" className="slider-control right-4" aria-label="Next Valentine's promotion"><ChevronRight /></button>
         </section>
 
-        <section aria-label="Featured shopping" className="relative z-10 mx-auto -mt-12 grid max-w-[1500px] gap-5 px-5 pb-10 md:grid-cols-2 xl:grid-cols-4">
+        <section aria-label="Featured shopping" className="relative z-10 -mt-12 grid gap-5 px-5 pb-10 md:grid-cols-2 xl:grid-cols-4">
           <article className="shop-card">
             <h2>Shop by Category</h2>
             <img src={categoryGrid} width={1200} height={1200} loading="lazy" alt="Shoes, headphones, home comforts, and beauty products" className="mt-3 aspect-square w-full object-cover" />

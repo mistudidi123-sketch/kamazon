@@ -28,7 +28,7 @@ function Header() {
   
   return (
     <header className="bg-header text-header-foreground">
-      <div className="mx-auto flex min-h-15 max-w-[1500px] items-center gap-2 px-3 py-2">
+      <div className="flex min-h-15 items-center gap-2 px-3 py-2">
         <AmazonLogo />
         <LocationPicker className="hidden md:flex" />
         <form className="flex min-w-0 flex-1 overflow-hidden rounded-md ring-2 ring-transparent focus-within:ring-accent" onSubmit={(event) => event.preventDefault()}>
@@ -38,7 +38,7 @@ function Header() {
         </form>
         <CartNavLink />
       </div>
-      <div className="bg-subnav px-3 py-2 text-sm font-semibold"><div className="mx-auto flex max-w-[1500px] items-center gap-2"><Menu className="size-5" /> All</div></div>
+      <div className="bg-subnav px-3 py-2 text-sm font-semibold"><div className="flex items-center gap-2"><Menu className="size-5" /> All</div></div>
       <div className="bg-subnav/90 px-2 py-1 text-sm md:hidden"><LocationPicker className="flex" /></div>
     </header>
   );
@@ -55,12 +55,12 @@ function CartPage() {
     <div className="min-h-screen bg-background font-body text-foreground">
       <Header />
       <nav aria-label="Cart sections" className="border-b border-border bg-card">
-        <div className="mx-auto flex max-w-[1100px] gap-6 px-5 py-3 text-sm font-semibold sm:text-base">
+        <div className="flex gap-6 px-5 py-3 text-sm font-semibold sm:text-base">
           <span className="border-b-2 border-accent pb-2">Cart</span><button type="button">Buy Again</button><button type="button">Whole Foods code</button>
         </div>
       </nav>
 
-      <main className="mx-auto max-w-[1100px] px-4 py-5 md:py-8">
+      <main className="px-4 py-5 md:px-6 md:py-8">
         <section className="overflow-hidden rounded-md border-2 border-accent bg-card" aria-label="Important cart messages">
           <button type="button" className="flex w-full items-center gap-4 p-4 text-left font-bold sm:text-lg"><span className="h-12 w-2 shrink-0 bg-accent" /><span className="flex-1">Important messages for items in your Cart</span><ChevronRight className="size-6" /></button>
         </section>

@@ -9,6 +9,7 @@ import {
   
 } from "lucide-react";
 
+import { AccountNavLink } from "@/components/account-nav-link";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { LocationPicker } from "@/components/location-picker";
 import categoryGrid from "@/assets/category-grid.jpg";
@@ -115,10 +116,7 @@ function Index() {
           <a href="#" className="hidden items-center gap-1 px-2 py-2 text-sm font-semibold outline-focus xl:flex">
             <span aria-hidden="true">🇺🇸</span> EN <ChevronDown className="size-3" />
           </a>
-          <a href="#" className="hidden px-2 py-1.5 leading-tight outline-focus lg:block">
-            <small className="block text-[11px]">Hello, sign in</small>
-            <strong className="flex items-center text-sm">Account &amp; Lists <ChevronDown className="ml-1 size-3" /></strong>
-          </a>
+          <AccountNavLink className="hidden lg:block" />
           <a href="#" className="hidden px-2 py-1.5 leading-tight outline-focus lg:block">
             <small className="block text-[11px]">Returns</small>
             <strong className="block text-sm">&amp; Orders</strong>

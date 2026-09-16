@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronDown, ChevronRight, Menu, Search, ShoppingCart } from "lucide-react";
 
+import { AccountNavLink } from "@/components/account-nav-link";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { LocationPicker } from "@/components/location-picker";
 import { Button } from "@/components/ui/button";
@@ -36,6 +37,7 @@ function Header() {
           <input className="min-w-0 flex-1 bg-card px-3 py-2.5 text-sm text-foreground outline-none" placeholder="Search Amazon" aria-label="Search Amazon" />
           <Button type="submit" className="h-auto w-12 rounded-none bg-accent p-0 text-accent-foreground hover:bg-accent" aria-label="Search"><Search className="size-5" /></Button>
         </form>
+        <AccountNavLink className="hidden lg:block" />
         <CartNavLink />
       </div>
       <div className="bg-subnav px-3 py-2 text-sm font-semibold"><div className="flex items-center gap-2"><Menu className="size-5" /> All</div></div>

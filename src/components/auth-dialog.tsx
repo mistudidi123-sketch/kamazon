@@ -143,7 +143,7 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
               id="auth-password"
               type="password"
               required
-              minLength={6}
+              minLength={mode === "signup" ? 8 : 6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete={mode === "signup" ? "new-password" : "current-password"}

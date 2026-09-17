@@ -231,34 +231,36 @@
 }
 
 .amazon-logo {
-  position: relative;
   display: inline-flex;
-  align-items: baseline;
+  flex-direction: column;
+  align-items: stretch;
   flex-shrink: 0;
-  padding: 0.4rem 0.45rem 0.75rem;
+  padding: 0.35rem 0.45rem 0.4rem;
   font-family: var(--font-display);
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
   color: var(--header-foreground);
 }
 
-.amazon-logo-k {
-  margin-right: 0.02em;
-  color: var(--accent);
-  font-size: 1.75rem;
-  transform: translateY(0.06em);
-  text-shadow: 0 0 1.25rem color-mix(in srgb, var(--accent) 45%, transparent);
+.amazon-logo-word {
+  display: inline-flex;
+  align-items: baseline;
 }
 
-.amazon-logo img {
-  position: absolute;
-  bottom: 0.12rem;
-  left: 0.5rem;
-  width: 5rem;
-  height: auto;
-  pointer-events: none;
+.amazon-logo-k {
+  color: var(--accent);
+  letter-spacing: -0.04em;
+}
+
+.amazon-logo-smile {
+  display: block;
+  width: 100%;
+  height: 0.62rem;
+  margin-top: 0.1rem;
+  color: var(--accent);
+  overflow: visible;
 }
 
 @media (prefers-reduced-motion: reduce) {

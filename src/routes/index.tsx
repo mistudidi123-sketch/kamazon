@@ -91,7 +91,7 @@ function Index() {
     <div className="min-h-screen bg-background font-body text-foreground">
       <header className="bg-header text-header-foreground">
         <div className="flex min-h-15 items-center gap-2 px-3 py-2">
-          <AmazonLogo />
+          <KamazonLogo />
 
           <LocationPicker className="hidden md:flex" />
 

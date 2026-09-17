@@ -27,7 +27,7 @@ function Header() {
   return (
     <header className="bg-header text-header-foreground">
       <div className="flex min-h-15 items-center gap-2 px-3 py-2">
-        <AmazonLogo />
+        <KamazonLogo />
         <LocationPicker className="hidden md:flex" />
         <form className="flex min-w-0 flex-1 overflow-hidden rounded-md ring-2 ring-transparent focus-within:ring-accent" onSubmit={(event) => event.preventDefault()}>
           <Button type="button" variant="ghost" className="h-auto rounded-none bg-search-muted px-3 text-xs text-muted-foreground hover:bg-search-muted" aria-label="Select search category">All <ChevronDown className="size-3" /></Button>

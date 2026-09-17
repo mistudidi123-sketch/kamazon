@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { KamazonLogo } from "@/components/kamazon-logo";
+
 import { ChevronDown, ChevronRight, Menu, Search, ShoppingCart } from "lucide-react";
 
 import { AccountNavLink } from "@/components/account-nav-link";

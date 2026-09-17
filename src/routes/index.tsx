@@ -1,4 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { KamazonLogo } from "@/components/kamazon-logo";
+
 import {
   ChevronDown,
   ChevronLeft,

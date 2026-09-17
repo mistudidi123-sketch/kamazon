@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { KamazonLogo } from "@/components/kamazon-logo";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 

@@ -233,20 +233,30 @@
 .amazon-logo {
   position: relative;
   display: inline-flex;
+  align-items: baseline;
   flex-shrink: 0;
   padding: 0.4rem 0.45rem 0.75rem;
   font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 700;
   line-height: 1;
+  letter-spacing: -0.02em;
   color: var(--header-foreground);
+}
+
+.amazon-logo-k {
+  margin-right: 0.02em;
+  color: var(--accent);
+  font-size: 1.75rem;
+  transform: translateY(0.06em);
+  text-shadow: 0 0 1.25rem color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 .amazon-logo i {
   position: absolute;
   bottom: 0.28rem;
-  left: 1.05rem;
-  width: 2.9rem;
+  left: 0.55rem;
+  width: 3.75rem;
   height: 0.55rem;
   border-bottom: 3px solid var(--accent);
   border-radius: 50%;

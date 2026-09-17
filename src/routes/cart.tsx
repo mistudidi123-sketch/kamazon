@@ -21,9 +21,6 @@ export const Route = createFileRoute("/cart")({
   component: CartPage,
 });
 
-function AmazonLogo() {
-  return <Link to="/" className="amazon-logo" aria-label="Amazon home"><span>amazon</span><i aria-hidden="true" /></Link>;
-}
 
 function Header() {
   

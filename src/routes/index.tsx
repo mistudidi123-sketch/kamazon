@@ -77,14 +77,6 @@ const products = {
   },
 } satisfies Record<string, Product>;
 
-function AmazonLogo() {
-  return (
-    <Link to="/" className="amazon-logo" aria-label="Amazon home">
-      <span>amazon</span>
-      <i aria-hidden="true" />
-    </Link>
-  );
-}
 
 function Index() {
   const { addToCart: addCartItem, itemCount } = useCart();

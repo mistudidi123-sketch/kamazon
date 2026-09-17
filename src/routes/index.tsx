@@ -1,4 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { KamazonLogo } from "@/components/kamazon-logo";
+
 import {
   ChevronDown,
   ChevronLeft,
@@ -77,14 +79,6 @@ const products = {
   },
 } satisfies Record<string, Product>;
 
-function AmazonLogo() {
-  return (
-    <Link to="/" className="amazon-logo" aria-label="Amazon home">
-      <span>amazon</span>
-      <i aria-hidden="true" />
-    </Link>
-  );
-}
 
 function Index() {
   const { addToCart: addCartItem, itemCount } = useCart();
@@ -99,7 +93,7 @@ function Index() {
     <div className="min-h-screen bg-background font-body text-foreground">
       <header className="bg-header text-header-foreground">
         <div className="flex min-h-15 items-center gap-2 px-3 py-2">
-          <AmazonLogo />
+          <KamazonLogo />
 
           <LocationPicker className="hidden md:flex" />
 

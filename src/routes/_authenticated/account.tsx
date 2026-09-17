@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { KamazonLogo } from "@/components/kamazon-logo";
+
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -101,10 +103,8 @@ function AccountPage() {
   return (
     <div className="min-h-screen bg-background font-body text-foreground">
       <header className="bg-header px-4 py-3 text-header-foreground">
-        <Link to="/" className="amazon-logo" aria-label="Amazon home">
-          <span>amazon</span>
-          <i aria-hidden="true" />
-        </Link>
+        <KamazonLogo />
+
       </header>
 
       <main className="mx-auto w-full max-w-3xl px-4 py-8">

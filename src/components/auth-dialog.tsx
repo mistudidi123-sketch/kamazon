@@ -40,27 +40,64 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
+    const cleanEmail = email.trim().toLowerCase();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+    if (!emailPattern.test(cleanEmail)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    if (mode === "signup") {
+      if (!fullName.trim()) {
+        toast.error("Please enter your full name.");
+        return;
+      }
+      if (password.length < 8) {
+        toast.error("Password must be at least 8 characters.");
+        return;
+      }
+      if (!/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) {
+        toast.error("Password must include both letters and numbers.");
+        return;
+      }
+    }
+
     setBusy(true);
     try {
       if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
-          email,
+          email: cleanEmail,
           password,
           options: {
             emailRedirectTo: window.location.origin,
-            data: { full_name: fullName },
+            data: { full_name: fullName.trim() },
           },
         });
         if (error) throw error;
+        if (data.user && data.user.identities && data.user.identities.length === 0) {
+          toast.error("An account with this email already exists. Please sign in instead.");
+          setMode("signin");
+          return;
+        }
         if (!data.session) {
-          toast.success("Almost there — check your email to confirm your account.");
+          toast.success("Almost there — check your email and click the confirmation link.");
         } else {
           toast.success("Welcome! Your account is ready.");
         }
         onOpenChange(false);
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
+        const { error } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
+        if (error) {
+          if (/invalid login credentials/i.test(error.message)) {
+            toast.error("That email or password is incorrect.");
+            return;
+          }
+          if (/email not confirmed/i.test(error.message)) {
+            toast.error("Please confirm your email first — check your inbox for the link.");
+            return;
+          }
+          throw error;
+        }
         toast.success("Welcome back.");
         onOpenChange(false);
       }
@@ -106,7 +143,7 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
               id="auth-password"
               type="password"
               required
-              minLength={6}
+              minLength={mode === "signup" ? 8 : 6}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete={mode === "signup" ? "new-password" : "current-password"}

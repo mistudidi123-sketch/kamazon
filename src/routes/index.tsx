@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 
 import { AccountNavLink } from "@/components/account-nav-link";
+import { SignInCard } from "@/components/sign-in-card";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { LocationPicker } from "@/components/location-picker";
 import categoryGrid from "@/assets/category-grid.jpg";
@@ -184,10 +185,7 @@ function Index() {
           </article>
 
           <div className="grid gap-5">
-            <article className="shop-card min-h-0">
-              <h2>Sign in for the best experience</h2>
-              <a href="#" className="mt-4 block rounded-md bg-cta px-4 py-2 text-center text-sm font-semibold text-cta-foreground">Sign in securely</a>
-            </article>
+            <SignInCard />
             <article className="overflow-hidden bg-promo text-promo-foreground shadow-sm">
               <div className="px-5 pt-5 text-center"><h2 className="font-display text-xl font-semibold">We ship over 45 million products around the world</h2></div>
               <img src={globalShipping} width={1000} height={650} loading="lazy" alt="Packages and a world map representing global shipping" className="mt-3 aspect-[16/9] w-full object-cover" />

@@ -13,7 +13,8 @@ export function SignInCard() {
   if (loading) return null;
 
   if (user) {
-    const name = (user.user_metadata?.["full_name"] as string | undefined) ?? profile.full_name || user.email;
+    const name =
+      (user.user_metadata?.["full_name"] as string | undefined) || profile.full_name || user.email;
     return (
       <article className="shop-card min-h-0">
         <h2>Welcome back, {name}</h2>

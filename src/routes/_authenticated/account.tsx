@@ -4,11 +4,11 @@ import { KamazonLogo } from "@/components/kamazon-logo";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/lib/auth-context";
+import { emptyProfile, useProfile, type Profile } from "@/lib/profile";
 
 export const Route = createFileRoute("/_authenticated/account")({
   head: () => ({
@@ -24,63 +24,18 @@ export const Route = createFileRoute("/_authenticated/account")({
   component: AccountPage,
 });
 
-type ProfileForm = {
-  full_name: string;
-  phone: string;
-  address_line1: string;
-  address_line2: string;
-  city: string;
-  state: string;
-  postal_code: string;
-  country: string;
-};
-
-const emptyForm: ProfileForm = {
-  full_name: "",
-  phone: "",
-  address_line1: "",
-  address_line2: "",
-  city: "",
-  state: "",
-  postal_code: "",
-  country: "",
-};
+type ProfileForm = Profile;
 
 function AccountPage() {
   const { user, signOut } = useAuth();
-  const [form, setForm] = useState<ProfileForm>(emptyForm);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const { profile, loading, save: saveProfile } = useProfile();
+  const [form, setForm] = useState<ProfileForm>(emptyProfile);
 
   useEffect(() => {
-    if (!user) return;
-    let active = true;
-    supabase
-      .from("profiles")
-      .select("full_name, phone, address_line1, address_line2, city, state, postal_code, country")
-      .eq("id", user.id)
-      .maybeSingle()
-      .then(({ data, error }) => {
-        if (!active) return;
-        if (error) toast.error("Couldn't load your saved details.");
-        if (data) {
-          setForm({
-            full_name: data.full_name ?? "",
-            phone: data.phone ?? "",
-            address_line1: data.address_line1 ?? "",
-            address_line2: data.address_line2 ?? "",
-            city: data.city ?? "",
-            state: data.state ?? "",
-            postal_code: data.postal_code ?? "",
-            country: data.country ?? "",
-          });
-        }
-        setLoading(false);
-      });
-    return () => {
-      active = false;
-    };
-  }, [user]);
+    if (!loading) setForm(profile);
+  }, [loading, profile]);
+
+  const saving = saveProfile.isPending;
 
   const update = (key: keyof ProfileForm) => (event: React.ChangeEvent<HTMLInputElement>) =>
     setForm((current) => ({ ...current, [key]: event.target.value }));
@@ -88,16 +43,16 @@ function AccountPage() {
   const save = async (event: React.FormEvent) => {
     event.preventDefault();
     if (!user) return;
-    setSaving(true);
-    const { error } = await supabase
-      .from("profiles")
-      .upsert({ id: user.id, email: user.email ?? null, ...form }, { onConflict: "id" });
-    setSaving(false);
-    if (error) {
-      toast.error("Couldn't save your details. Please try again.");
+    if (!form.full_name.trim()) {
+      toast.error("Please enter your full name.");
       return;
     }
-    toast.success("Your details are saved.");
+    try {
+      await saveProfile.mutateAsync(form);
+      toast.success("Your details are saved.");
+    } catch {
+      toast.error("Couldn't save your details. Please try again.");
+    }
   };
 
   return (

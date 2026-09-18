@@ -5,6 +5,7 @@ import { ChevronDown, ChevronRight, Menu, Search, ShoppingCart } from "lucide-re
 
 import { AccountNavLink } from "@/components/account-nav-link";
 import { CartNavLink } from "@/components/cart-nav-link";
+import { CheckoutAddress } from "@/components/checkout-address";
 import { LocationPicker } from "@/components/location-picker";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
@@ -65,6 +66,8 @@ function CartPage() {
         <section className="overflow-hidden rounded-md border-2 border-accent bg-card" aria-label="Important cart messages">
           <button type="button" className="flex w-full items-center gap-4 p-4 text-left font-bold sm:text-lg"><span className="h-12 w-2 shrink-0 bg-accent" /><span className="flex-1">Important messages for items in your Cart</span><ChevronRight className="size-6" /></button>
         </section>
+
+        <CheckoutAddress />
 
         <section className="mt-6 border-b border-border pb-6">
           <p className="text-2xl">Subtotal <Price value={subtotal} /></p>

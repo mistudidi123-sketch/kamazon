@@ -62,79 +62,115 @@ function CartPage() {
         </div>
       </nav>
 
-      <main className="px-4 py-5 md:px-6 md:py-8">
-        <section className="overflow-hidden rounded-md border-2 border-accent bg-card" aria-label="Important cart messages">
-          <button type="button" className="flex w-full items-center gap-4 p-4 text-left font-bold sm:text-lg"><span className="h-12 w-2 shrink-0 bg-accent" /><span className="flex-1">Important messages for items in your Cart</span><ChevronRight className="size-6" /></button>
-        </section>
+      <main className="grid items-start gap-5 px-4 py-5 md:px-6 md:py-8 lg:grid-cols-[minmax(0,1fr)_360px]">
+        <div className="min-w-0 space-y-5">
+          <section className="overflow-hidden rounded-lg border-2 border-accent bg-card" aria-label="Important cart messages">
+            <button type="button" className="flex w-full items-center gap-4 p-4 text-left font-bold sm:text-lg"><span className="h-12 w-2 shrink-0 bg-accent" /><span className="flex-1">Important messages for items in your Cart</span><ChevronRight className="size-6" /></button>
+          </section>
 
-        <CheckoutAddress />
+          <CheckoutAddress />
 
-        <section className="mt-6 border-b border-border pb-6">
-          <p className="text-2xl">Subtotal <Price value={subtotal} /></p>
+          <section className="rounded-lg border border-border bg-card px-5 py-5 shadow-sm" aria-label="Shopping cart items">
+            <div className="border-b border-border pb-4">
+              <h1 className="font-display text-3xl font-bold">Shopping Cart</h1>
+              <p className="mt-1 text-sm text-muted-foreground">{itemCount} {itemCount === 1 ? "item" : "items"}</p>
+            </div>
+
+            {cart.length === 0 ? (
+              <div className="py-14 text-center"><ShoppingCart className="mx-auto size-12 text-muted-foreground" /><h2 className="mt-4 font-display text-2xl font-semibold">Your Kamazon Cart is empty</h2><Button asChild className="mt-5 bg-cta text-cta-foreground hover:bg-cta"><Link to="/">Continue shopping</Link></Button></div>
+            ) : (
+              <>
+                <div className="divide-y divide-border">
+                  {cart.map((item) => (
+                    <article key={item.id} className="grid grid-cols-[104px_1fr] gap-4 py-6 sm:grid-cols-[150px_1fr_auto]">
+                      <img src={item.image} alt={item.name} className={`aspect-square w-full rounded-md bg-muted object-cover ${item.imageClass ?? "object-center"}`} />
+                      <div className="min-w-0">
+                        <h2 className="text-base font-semibold leading-6 sm:text-lg">{item.name}</h2>
+                        <div className="mt-2 sm:hidden"><Price value={item.price} /></div>
+                        <p className="mt-2 text-sm font-semibold text-green-700">In Stock</p>
+                        <p className="mt-1 text-xs text-muted-foreground">Shipped from: <span className="text-primary">Kamazon</span></p>
+                        <p className="mt-1 text-sm"><strong>Color:</strong> Assorted</p>
+                        <div className="mt-4 flex flex-wrap items-center gap-2">
+                          <div className="flex h-10 items-center rounded-md border border-border shadow-sm">
+                            <Button type="button" variant="ghost" size="icon" className="h-9" onClick={() => changeQuantity(item.id, -1)} aria-label={`Decrease ${item.name} quantity`}>−</Button>
+                            <span className="w-8 text-center font-semibold" aria-label={`Quantity ${item.quantity}`}>{item.quantity}</span>
+                            <Button type="button" variant="ghost" size="icon" className="h-9" onClick={() => changeQuantity(item.id, 1)} aria-label={`Increase ${item.name} quantity`}>+</Button>
+                          </div>
+                          <Button type="button" variant="outline" className="h-10" onClick={() => removeItem(item.id)}>Delete</Button>
+                          <Button type="button" variant="outline" className="h-10" onClick={() => saveForLater(item.id)}>Save for later</Button>
+                        </div>
+                      </div>
+                      <div className="hidden text-right sm:block"><Price value={item.price * item.quantity} /></div>
+                    </article>
+                  ))}
+                </div>
+                <p className="border-t border-border pt-4 text-right text-lg">Subtotal ({itemCount} {itemCount === 1 ? "item" : "items"}): <Price value={subtotal} /></p>
+              </>
+            )}
+          </section>
+
+          {saved.length > 0 && (
+            <section aria-label="Saved for later" className="rounded-lg border border-border bg-card px-5 py-5 shadow-sm">
+              <h2 className="font-display text-xl font-semibold">Saved for later ({saved.length} {saved.length === 1 ? "item" : "items"})</h2>
+              <div className="mt-4 divide-y divide-border">
+                {saved.map((item) => (
+                  <article key={item.id} className="grid grid-cols-[88px_1fr] gap-4 py-5 sm:grid-cols-[120px_1fr_auto]">
+                    <img src={item.image} alt={item.name} className={`aspect-square w-full rounded-md bg-muted object-cover ${item.imageClass ?? "object-center"}`} />
+                    <div className="min-w-0">
+                      <h3 className="text-base font-semibold leading-6">{item.name}</h3>
+                      <div className="mt-2 sm:hidden"><Price value={item.price} /></div>
+                      <p className="mt-1 text-sm text-muted-foreground">Quantity: {item.quantity}</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <Button type="button" variant="outline" className="h-10" onClick={() => moveToCart(item.id)}>Move to cart</Button>
+                        <Button type="button" variant="outline" className="h-10" onClick={() => removeSaved(item.id)}>Delete</Button>
+                      </div>
+                    </div>
+                    <div className="hidden text-right sm:block"><Price value={item.price * item.quantity} /></div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
+
+        <aside className="rounded-lg border border-border bg-card px-5 py-5 shadow-sm lg:sticky lg:top-4" aria-label="Order summary">
+          <div className="flex items-baseline justify-between gap-3">
+            <p className="text-xl font-bold">Subtotal <span className="text-base font-normal text-muted-foreground">({itemCount} {itemCount === 1 ? "item" : "items"})</span></p>
+            <Price value={subtotal} />
+          </div>
+
+          <label className="mt-4 flex cursor-pointer items-center gap-3 text-sm"><input type="checkbox" className="size-5 accent-[var(--cta)]" /><span aria-hidden="true">🎁</span> This order contains a gift</label>
+
           {itemCount === 0 ? (
-            <Button type="button" disabled className="mt-5 h-12 w-full bg-cta text-base text-cta-foreground shadow-sm hover:bg-cta sm:max-w-xl">Proceed to checkout (0 items)</Button>
+            <Button type="button" disabled className="mt-5 h-12 w-full rounded-full bg-cta text-base font-bold text-cta-foreground hover:bg-cta">Proceed to checkout (0 items)</Button>
           ) : (
-            <Button asChild className="mt-5 h-12 w-full bg-cta text-base text-cta-foreground shadow-sm transition-transform hover:bg-cta active:scale-[0.99] sm:max-w-xl">
+            <Button asChild className="mt-5 h-12 w-full rounded-full bg-cta text-base font-bold text-cta-foreground shadow-sm transition-transform hover:bg-cta active:scale-[0.99]">
               <Link to="/checkout" preload="intent">Proceed to checkout ({itemCount} {itemCount === 1 ? "item" : "items"})</Link>
             </Button>
           )}
-          <label className="mt-5 flex cursor-pointer items-center gap-3 text-base"><input type="checkbox" className="size-6 accent-[var(--cta)]" /><span aria-hidden="true">🎁</span> This order contains a gift</label>
-        </section>
+          <Button asChild variant="outline" className="mt-3 h-12 w-full rounded-full text-base"><Link to="/">Continue shopping</Link></Button>
 
-        {cart.length === 0 ? (
-          <section className="bg-card px-5 py-14 text-center"><ShoppingCart className="mx-auto size-12 text-muted-foreground" /><h1 className="mt-4 font-display text-2xl font-semibold">Your Amazon Cart is empty</h1><Button asChild className="mt-5 bg-cta text-cta-foreground hover:bg-cta"><Link to="/">Continue shopping</Link></Button></section>
-        ) : (
-          <section aria-label="Shopping cart items" className="divide-y divide-border bg-card">
-            {cart.map((item) => (
-              <article key={item.id} className="grid grid-cols-[104px_1fr] gap-4 py-6 sm:grid-cols-[150px_1fr_auto]">
-                <img src={item.image} alt={item.name} className={`aspect-square w-full rounded-md bg-muted object-cover ${item.imageClass ?? "object-center"}`} />
-                <div className="min-w-0">
-                  <h2 className="text-base font-semibold leading-6 sm:text-lg">{item.name}</h2>
-                  <div className="mt-2 sm:hidden"><Price value={item.price} /></div>
-                  <p className="mt-2 text-sm font-semibold text-green-700">In Stock</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Shipped from: <span className="text-primary">Amazon Romania</span></p>
-                  <p className="mt-1 text-sm"><strong>Color:</strong> Assorted</p>
-                  <div className="mt-4 flex flex-wrap items-center gap-2">
-                    <div className="flex h-10 items-center rounded-md border border-border shadow-sm">
-                      <Button type="button" variant="ghost" size="icon" className="h-9" onClick={() => changeQuantity(item.id, -1)} aria-label={`Decrease ${item.name} quantity`}>−</Button>
-                      <span className="w-8 text-center font-semibold" aria-label={`Quantity ${item.quantity}`}>{item.quantity}</span>
-                      <Button type="button" variant="ghost" size="icon" className="h-9" onClick={() => changeQuantity(item.id, 1)} aria-label={`Increase ${item.name} quantity`}>+</Button>
-                    </div>
-                    <Button type="button" variant="outline" className="h-10" onClick={() => removeItem(item.id)}>Delete</Button>
-                    <Button type="button" variant="outline" className="h-10" onClick={() => saveForLater(item.id)}>Save for later</Button>
-                  </div>
-                </div>
-                <div className="hidden text-right sm:block"><Price value={item.price * item.quantity} /></div>
-              </article>
-            ))}
-          </section>
-        )}
+          <div className="mt-6 border-t border-border pt-5">
+            <h2 className="text-base font-bold">Apply promo code</h2>
+            <form className="mt-3 flex gap-2" onSubmit={(event) => event.preventDefault()}>
+              <input className="h-10 min-w-0 flex-1 rounded-md border border-border bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-accent" placeholder="Enter code" aria-label="Promo code" />
+              <Button type="submit" variant="outline" className="h-10">Apply</Button>
+            </form>
+          </div>
 
-        {saved.length > 0 && (
-          <section aria-label="Saved for later" className="mt-8 bg-card px-4 py-5">
-            <h2 className="font-display text-xl font-semibold">Saved for later ({saved.length} {saved.length === 1 ? "item" : "items"})</h2>
-            <div className="mt-4 divide-y divide-border">
-              {saved.map((item) => (
-                <article key={item.id} className="grid grid-cols-[88px_1fr] gap-4 py-5 sm:grid-cols-[120px_1fr_auto]">
-                  <img src={item.image} alt={item.name} className={`aspect-square w-full rounded-md bg-muted object-cover ${item.imageClass ?? "object-center"}`} />
-                  <div className="min-w-0">
-                    <h3 className="text-base font-semibold leading-6">{item.name}</h3>
-                    <div className="mt-2 sm:hidden"><Price value={item.price} /></div>
-                    <p className="mt-1 text-sm text-muted-foreground">Quantity: {item.quantity}</p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <Button type="button" variant="outline" className="h-10" onClick={() => moveToCart(item.id)}>Move to cart</Button>
-                      <Button type="button" variant="outline" className="h-10" onClick={() => removeSaved(item.id)}>Delete</Button>
-                    </div>
-                  </div>
-                  <div className="hidden text-right sm:block"><Price value={item.price * item.quantity} /></div>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
+          <div className="mt-6 border-t border-border pt-5">
+            <h2 className="text-base font-bold">Order summary</h2>
+            <dl className="mt-3 space-y-2 text-sm">
+              <div className="flex items-center justify-between"><dt>Items ({itemCount})</dt><dd className="font-semibold">Rs {subtotal.toLocaleString("en-IN")}</dd></div>
+              <div className="flex items-center justify-between"><dt>Delivery Charges</dt><dd className="font-semibold">Rs 0</dd></div>
+            </dl>
+            <div className="mt-4 flex items-center justify-between border-t border-border pt-4 text-lg font-bold"><span>Total</span><Price value={subtotal} /></div>
+          </div>
 
-        <div className="mt-7"><Button asChild variant="outline"><Link to="/">← Continue shopping</Link></Button></div>
+          <p className="mt-5 rounded-md bg-muted px-3 py-3 text-xs text-muted-foreground">You can review this order before paying.</p>
+        </aside>
       </main>
+
     </div>
   );
 }

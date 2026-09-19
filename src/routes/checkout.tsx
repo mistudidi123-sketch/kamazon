@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { Banknote, Building2, Check, CreditCard, Loader2, Lock, Smartphone, Truck, Wallet } from "lucide-react";
+import { ArrowLeft, Banknote, Building2, Check, CreditCard, Loader2, Lock, Smartphone, Store, Truck, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { Banknote, Building2, Check, CreditCard, Loader2, Lock, Smartphone, Truck, Wallet } from "lucide-react";
+import { ArrowLeft, Banknote, Building2, Check, CreditCard, Loader2, Lock, Smartphone, Store, Truck, Wallet } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -95,7 +95,25 @@ function CheckoutPage() {
 
       <main className="px-4 py-6 md:px-10 md:py-8">
         <div className="mx-auto max-w-5xl">
-          <Steps />
+          <nav aria-label="Checkout navigation" className="flex flex-wrap items-center gap-3">
+            <Link
+              to="/cart"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-bold text-accent-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+            >
+              <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
+              Back to cart
+            </Link>
+            <Link
+              to="/"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+            >
+              <Store className="size-4 transition-transform duration-300 group-hover:scale-110" />
+              Continue shopping
+            </Link>
+          </nav>
+          <div className="mt-6">
+            <Steps />
+          </div>
         </div>
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_380px]">
@@ -151,9 +169,6 @@ function CheckoutPage() {
             <p className="mt-3 flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <Lock className="size-4" /> Your payment information is secure and encrypted.
             </p>
-            <div className="mt-6">
-              <Link to="/cart" className="text-sm font-semibold text-primary hover:underline">← Back to cart</Link>
-            </div>
           </section>
 
           <aside aria-label="Order summary" className="h-fit rounded-lg border border-border bg-card p-5">

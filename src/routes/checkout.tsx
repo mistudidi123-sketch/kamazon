@@ -98,14 +98,14 @@ function CheckoutPage() {
           <nav aria-label="Checkout navigation" className="flex flex-wrap items-center gap-3">
             <Link
               to="/cart"
-              className="group inline-flex items-center gap-2 rounded-full border border-accent/50 bg-accent/10 px-4 py-2 text-sm font-bold text-accent transition-all duration-300 hover:bg-accent hover:text-accent-foreground hover:shadow-md"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-bold text-accent-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
             >
               <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-0.5" />
               Back to cart
             </Link>
             <Link
               to="/"
-              className="group inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-sm font-bold text-primary transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-md"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
             >
               <Store className="size-4 transition-transform duration-300 group-hover:scale-110" />
               Continue shopping

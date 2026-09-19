@@ -71,7 +71,13 @@ function CartPage() {
 
         <section className="mt-6 border-b border-border pb-6">
           <p className="text-2xl">Subtotal <Price value={subtotal} /></p>
-          <Button type="button" disabled={itemCount === 0} className="mt-5 h-12 w-full bg-cta text-base text-cta-foreground shadow-sm hover:bg-cta sm:max-w-xl">Proceed to checkout ({itemCount} {itemCount === 1 ? "item" : "items"})</Button>
+          {itemCount === 0 ? (
+            <Button type="button" disabled className="mt-5 h-12 w-full bg-cta text-base text-cta-foreground shadow-sm hover:bg-cta sm:max-w-xl">Proceed to checkout (0 items)</Button>
+          ) : (
+            <Button asChild className="mt-5 h-12 w-full bg-cta text-base text-cta-foreground shadow-sm transition-transform hover:bg-cta active:scale-[0.99] sm:max-w-xl">
+              <Link to="/checkout" preload="intent">Proceed to checkout ({itemCount} {itemCount === 1 ? "item" : "items"})</Link>
+            </Button>
+          )}
           <label className="mt-5 flex cursor-pointer items-center gap-3 text-base"><input type="checkbox" className="size-6 accent-[var(--cta)]" /><span aria-hidden="true">🎁</span> This order contains a gift</label>
         </section>
 

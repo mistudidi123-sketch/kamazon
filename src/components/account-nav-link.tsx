@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { AuthDialog } from "@/components/auth-dialog";
 import { useAuth } from "@/lib/auth-context";
@@ -8,6 +9,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -46,8 +49,16 @@ export function AccountNavLink({ className = "" }: { className?: string }) {
           Account &amp; Lists <ChevronDown className="ml-1 size-3" />
         </strong>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="min-w-56">
+        <DropdownMenuLabel>Your account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={() => navigate({ to: "/account" })}>Your account &amp; address</DropdownMenuItem>
+        <DropdownMenuItem
+          onSelect={() => toast.info("Seller account coming soon", { description: "We're building a space for you to sell on Kamazon." })}
+        >
+          Seller account
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem onSelect={() => void signOut()}>Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

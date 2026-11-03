@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 import { KamazonLogo } from "@/components/kamazon-logo";
+import { DiwaliBar } from "@/components/diwali-bar";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
 import { formatAddress, hasAddress, useProfile } from "@/lib/profile";

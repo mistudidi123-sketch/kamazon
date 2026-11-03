@@ -6,6 +6,7 @@ import { ChevronDown, ChevronRight, Menu, Search, ShoppingCart } from "lucide-re
 import { AccountNavLink } from "@/components/account-nav-link";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { CheckoutAddress } from "@/components/checkout-address";
+import { DiwaliBar } from "@/components/diwali-bar";
 import { LocationPicker } from "@/components/location-picker";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
@@ -26,9 +27,9 @@ export const Route = createFileRoute("/cart")({
 
 
 function Header() {
-  
   return (
     <header className="bg-header text-header-foreground">
+      <DiwaliBar />
       <div className="flex min-h-15 items-center gap-2 px-3 py-2">
         <KamazonLogo />
         <LocationPicker className="hidden md:flex" />
@@ -72,7 +73,10 @@ function CartPage() {
 
           <section className="rounded-lg border border-border bg-card px-5 py-5 shadow-sm" aria-label="Shopping cart items">
             <div className="border-b border-border pb-4">
-              <h1 className="font-display text-3xl font-bold">Shopping Cart</h1>
+              <div className="flex flex-wrap items-center gap-3">
+                <h1 className="font-display text-3xl font-bold">Shopping Cart</h1>
+                <span className="diwali-deal-tag">Diwali Special</span>
+              </div>
               <p className="mt-1 text-sm text-muted-foreground">{itemCount} {itemCount === 1 ? "item" : "items"}</p>
             </div>
 

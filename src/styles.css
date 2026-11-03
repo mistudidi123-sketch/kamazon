@@ -74,6 +74,14 @@
   --color-promo: var(--promo);
   --color-promo-foreground: var(--promo-foreground);
   --color-overlay: var(--overlay);
+  --color-diwali-night: var(--diwali-night);
+  --color-diwali-night-deep: var(--diwali-night-deep);
+  --color-diwali-gold: var(--diwali-gold);
+  --color-diwali-gold-deep: var(--diwali-gold-deep);
+  --color-diwali-marigold: var(--diwali-marigold);
+  --color-diwali-saffron: var(--diwali-saffron);
+  --color-diwali-deal: var(--diwali-deal);
+  --color-diwali-deal-foreground: var(--diwali-deal-foreground);
 }
 
 :root {
@@ -123,6 +131,14 @@
   --promo: oklch(0.762 0.136 219);
   --promo-foreground: oklch(1 0 0);
   --overlay: oklch(0.12 0.02 250 / 58%);
+  --diwali-night: oklch(0.27 0.07 300);
+  --diwali-night-deep: oklch(0.2 0.06 310);
+  --diwali-gold: oklch(0.86 0.14 92);
+  --diwali-gold-deep: oklch(0.75 0.15 78);
+  --diwali-marigold: oklch(0.79 0.16 64);
+  --diwali-saffron: oklch(0.73 0.17 55);
+  --diwali-deal: oklch(0.62 0.21 30);
+  --diwali-deal-foreground: oklch(0.99 0.01 90);
 }
 
 .dark {
@@ -261,6 +277,40 @@
   margin-top: 0.1rem;
   color: var(--accent);
   overflow: visible;
+}
+
+@utility diwali-bar {
+  background: linear-gradient(90deg, var(--diwali-saffron), var(--diwali-gold) 50%, var(--diwali-marigold));
+  color: var(--diwali-night-deep);
+}
+
+@utility diwali-hero-bg {
+  background:
+    radial-gradient(1100px 480px at 78% 28%, color-mix(in oklab, var(--diwali-gold) 20%, transparent), transparent 65%),
+    radial-gradient(900px 420px at 10% 88%, color-mix(in oklab, var(--diwali-marigold) 16%, transparent), transparent 60%),
+    linear-gradient(155deg, var(--diwali-night) 0%, var(--diwali-night-deep) 55%, oklch(0.3 0.08 28) 100%);
+}
+
+@utility diwali-gold-text {
+  background: linear-gradient(100deg, var(--diwali-gold) 0%, oklch(0.96 0.08 95) 45%, var(--diwali-marigold) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility diwali-deal-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 9999px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  background: linear-gradient(100deg, var(--diwali-deal), var(--diwali-saffron));
+  color: var(--diwali-deal-foreground);
+  box-shadow: 0 2px 8px color-mix(in oklab, var(--diwali-deal) 40%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

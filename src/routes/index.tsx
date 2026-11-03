@@ -5,35 +5,35 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  
   Menu,
   Search,
-  
 } from "lucide-react";
 
 import { AccountNavLink } from "@/components/account-nav-link";
+import { DiwaliBar } from "@/components/diwali-bar";
 import { SignInCard } from "@/components/sign-in-card";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { LocationPicker } from "@/components/location-picker";
 import categoryGrid from "@/assets/category-grid.jpg";
+import diwaliGifts from "@/assets/diwali-gifts.jpg";
+import diwaliHero from "@/assets/diwali-hero.jpg";
 import electronicsGrid from "@/assets/electronics-grid.jpg";
 import globalShipping from "@/assets/global-shipping.jpg";
 import refreshSpace from "@/assets/refresh-space.jpg";
-import valentinesGiftStack from "@/assets/valentines-gift-stack.jpg";
 import { useCart, type Product } from "@/lib/cart-context";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Amazon Romania | Valentine's Day Deals" },
+      { title: "Amazon Romania | Diwali Special — Festive Gifts & Deals" },
       {
         name: "description",
-        content: "Explore Valentine's gifts, electronics, home essentials, and global delivery offers on Amazon Romania.",
+        content: "Celebrate Diwali with festive hampers, sweets, décor and electronics deals — delivered in time for the festival of lights.",
       },
-      { property: "og:title", content: "Amazon Romania | Valentine's Day Deals" },
+      { property: "og:title", content: "Amazon Romania | Diwali Special — Festive Gifts & Deals" },
       {
         property: "og:description",
-        content: "Explore Valentine's gifts, electronics, home essentials, and global delivery offers on Amazon Romania.",
+        content: "Celebrate Diwali with festive hampers, sweets, décor and electronics deals — delivered in time for the festival of lights.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -43,19 +43,20 @@ export const Route = createFileRoute("/")({
 });
 
 const navItems = [
+  "Diwali Store",
+  "Festive Gifts",
   "Today's Deals",
   "Customer Service",
-  "Registry",
   "Gift Cards",
   "Sell",
 ];
 
 const products = {
-  romance: {
-    id: "romance",
-    name: "The Romance Gift Set",
+  hamper: {
+    id: "hamper",
+    name: "Diwali Gift Hamper",
     price: 189,
-    image: valentinesGiftStack,
+    image: diwaliGifts,
   },
   trainers: {
     id: "trainers",
@@ -82,7 +83,7 @@ const products = {
 
 
 function Index() {
-  const { addToCart: addCartItem, itemCount } = useCart();
+  const { addToCart: addCartItem } = useCart();
   const navigate = useNavigate({ from: "/" });
 
   const addToCart = (product: Product) => {
@@ -92,6 +93,7 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background font-body text-foreground">
+      <DiwaliBar />
       <header className="bg-header text-header-foreground">
         <div className="flex min-h-15 items-center gap-2 px-3 py-2">
           <KamazonLogo />
@@ -102,7 +104,7 @@ function Index() {
             <button type="button" className="flex items-center gap-2 bg-search-muted px-3 text-xs text-muted-foreground" aria-label="Select search category">
               All <ChevronDown className="size-3" aria-hidden="true" />
             </button>
-            <input className="min-w-0 flex-1 bg-card px-3 py-2.5 text-sm text-foreground outline-none" placeholder="Search Amazon" aria-label="Search Amazon" />
+            <input className="min-w-0 flex-1 bg-card px-3 py-2.5 text-sm text-foreground outline-none" placeholder="Search Diwali gifts, sweets, décor…" aria-label="Search Amazon" />
             <button type="submit" className="grid w-12 place-items-center bg-accent text-accent-foreground" aria-label="Search">
               <Search className="size-5" />
             </button>
@@ -123,13 +125,13 @@ function Index() {
           <div className="flex items-center gap-1 overflow-x-auto px-3">
             <a href="#" className="flex shrink-0 items-center gap-1 px-2 py-2 outline-focus"><Menu className="size-5" /> All</a>
             {navItems.map((item) => <a key={item} href="#" className="shrink-0 px-2 py-2 outline-focus">{item}</a>)}
-            <a href="#" className="ml-auto hidden shrink-0 px-2 py-2 outline-focus md:block">Shop deals in Electronics</a>
+            <a href="#" className="ml-auto hidden shrink-0 px-2 py-2 outline-focus md:block">Shop Diwali deals in Electronics</a>
           </div>
         </nav>
       </header>
 
       <main>
-        <section className="relative overflow-hidden bg-hero text-hero-foreground">
+        <section className="relative overflow-hidden diwali-hero-bg text-hero-foreground">
           <div className="absolute left-5 top-0 z-20 w-[430px] max-w-[calc(100%-2.5rem)] rounded-b-md bg-card p-4 text-card-foreground shadow-xl">
             <p className="text-sm font-semibold leading-5">We're showing you items that ship to RO. To see items that ship to a different country, change your delivery address.</p>
             <div className="mt-3 flex justify-end gap-3">
@@ -140,23 +142,26 @@ function Index() {
 
           <div className="grid min-h-[470px] items-center gap-6 px-7 pb-20 pt-36 md:grid-cols-[0.86fr_1.14fr] md:px-16 md:pb-16 md:pt-20">
             <div className="relative z-10 text-center md:text-left">
-              <p className="inline-flex rounded-full bg-accent px-3 py-1 text-[11px] font-bold uppercase text-accent-foreground">Seasonal campaign</p>
-              <h1 className="mt-4 max-w-[17ch] font-display text-4xl font-semibold leading-tight md:text-5xl">Gifts that say it better than words.</h1>
-              <p className="mt-3 max-w-[46ch] text-base text-hero-muted md:text-lg">Explore Valentine's Day picks for every kind of love, delivered across Romania.</p>
-              <button type="button" onClick={() => addToCart(products.romance)} className="mt-6 inline-flex rounded-md bg-accent px-5 py-3 text-sm font-bold text-accent-foreground outline-focus">Add gift set · Rs 189</button>
+              <p className="inline-flex items-center gap-1.5 rounded-full bg-diwali-gold px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-diwali-night-deep">✨ Diwali Special · November 8</p>
+              <h1 className="mt-4 max-w-[18ch] font-display text-4xl font-semibold leading-tight md:text-5xl">
+                Light up your <span className="diwali-gold-text">Diwali</span> with gifts that glow.
+              </h1>
+              <p className="mt-3 max-w-[46ch] text-base text-hero-muted md:text-lg">Diyas, sweets, festive hampers and décor — handpicked for the festival of lights, delivered in time for Diwali night.</p>
+              <button type="button" onClick={() => addToCart(products.hamper)} className="mt-6 inline-flex rounded-md bg-diwali-gold px-5 py-3 text-sm font-bold text-diwali-night-deep outline-focus transition-colors hover:bg-diwali-gold-deep">Shop the Diwali hamper · Rs 189</button>
             </div>
             <div className="relative mx-auto w-full max-w-[680px]">
-              <img src={valentinesGiftStack} width={1200} height={900} alt="Perfume, roses, chocolate, and jewelry arranged as Valentine's gifts" className="aspect-[4/3] w-full object-contain" />
+              <img src={diwaliHero} width={1600} height={1008} alt="Glowing diyas, marigold flowers and golden gift boxes under festive fireworks" className="aspect-[4/3] w-full rounded-xl object-cover shadow-2xl" />
             </div>
           </div>
-          <button type="button" className="slider-control left-4" aria-label="Previous Valentine's promotion"><ChevronLeft /></button>
-          <button type="button" className="slider-control right-4" aria-label="Next Valentine's promotion"><ChevronRight /></button>
+          <button type="button" className="slider-control left-4" aria-label="Previous Diwali promotion"><ChevronLeft /></button>
+          <button type="button" className="slider-control right-4" aria-label="Next Diwali promotion"><ChevronRight /></button>
         </section>
 
         <section aria-label="Featured shopping" className="relative z-10 -mt-12 grid gap-5 px-5 pb-10 md:grid-cols-2 xl:grid-cols-4">
           <article className="shop-card">
-            <h2>Shop by Category</h2>
-            <img src={categoryGrid} width={1200} height={1200} loading="lazy" alt="Shoes, headphones, home comforts, and beauty products" className="mt-3 aspect-square w-full object-cover" />
+            <span className="diwali-deal-tag">Diwali Deal</span>
+            <h2 className="mt-2">Diwali Shop by Category</h2>
+            <img src={categoryGrid} width={1200} height={1200} loading="lazy" alt="Shoes, headphones, home comforts, and beauty products" className="mt-3 aspect-square w-full rounded-md object-cover" />
             <div className="mt-2 grid grid-cols-2 text-center text-xs font-semibold"><span>Computers &amp; Accessories</span><span>Electronics</span><span className="pt-2">Home</span><span className="pt-2">Beauty</span></div>
             <div className="mt-auto flex items-end justify-between gap-3 pt-5">
               <span className="text-sm font-bold">Rs 289</span>
@@ -165,19 +170,21 @@ function Index() {
           </article>
 
           <article className="shop-card">
-            <h2>Refresh your space</h2>
-            <img src={refreshSpace} width={1200} height={800} loading="lazy" alt="Warm ceramic lamp and knitted throw in a calm living space" className="mt-3 aspect-[4/3] w-full object-cover" />
-            <div className="mt-2 flex justify-between text-xs font-semibold"><span>Lighting</span><span>Home comforts</span></div>
+            <span className="diwali-deal-tag">Diwali Deal</span>
+            <h2 className="mt-2">Festive sweets &amp; gifting</h2>
+            <img src={diwaliGifts} width={1408} height={1056} loading="lazy" alt="Box of colourful Indian mithai sweets with a golden gift box, marigolds and a lit diya" className="mt-3 aspect-[4/3] w-full rounded-md object-cover" />
+            <div className="mt-2 flex justify-between text-xs font-semibold"><span>Mithai boxes</span><span>Gift hampers</span></div>
             <div className="mt-auto flex items-end justify-between gap-3 pt-5">
-              <span className="text-sm font-bold">Rs 142</span>
-              <button type="button" onClick={() => addToCart(products.lamp)} className="rounded-md bg-cta px-3 py-2 text-xs font-bold text-cta-foreground">Add to cart</button>
+              <span className="text-sm font-bold">Rs 189</span>
+              <button type="button" onClick={() => addToCart(products.hamper)} className="rounded-md bg-cta px-3 py-2 text-xs font-bold text-cta-foreground">Add to cart</button>
             </div>
           </article>
 
           <article className="shop-card">
-            <h2>Electronics</h2>
-            <img src={electronicsGrid} width={1500} height={700} loading="lazy" alt="Wireless headphones, smartwatch, and portable speaker" className="mt-3 aspect-[4/3] w-full object-cover" />
-            <p className="mt-3 text-sm text-muted-foreground">Headphones, wearables and portable audio.</p>
+            <span className="diwali-deal-tag">Diwali Deal</span>
+            <h2 className="mt-2">Electronics</h2>
+            <img src={electronicsGrid} width={1500} height={700} loading="lazy" alt="Wireless headphones, smartwatch, and portable speaker" className="mt-3 aspect-[4/3] w-full rounded-md object-cover" />
+            <p className="mt-3 text-sm text-muted-foreground">Headphones, wearables and portable audio for the festive season.</p>
             <div className="mt-auto flex items-end justify-between gap-3 pt-5">
               <span className="text-sm font-bold">Rs 489</span>
               <button type="button" onClick={() => addToCart(products.headphones)} className="rounded-md bg-cta px-3 py-2 text-xs font-bold text-cta-foreground">Add to cart</button>
@@ -187,8 +194,8 @@ function Index() {
           <div className="grid gap-5">
             <SignInCard />
             <article className="overflow-hidden bg-promo text-promo-foreground shadow-sm">
-              <div className="px-5 pt-5 text-center"><h2 className="font-display text-xl font-semibold">We ship over 45 million products around the world</h2></div>
-              <img src={globalShipping} width={1000} height={650} loading="lazy" alt="Packages and a world map representing global shipping" className="mt-3 aspect-[16/9] w-full object-cover" />
+              <div className="px-5 pt-5 text-center"><h2 className="font-display text-xl font-semibold">Order by 6 Nov — light up Diwali night, 8 Nov</h2></div>
+              <img src={globalShipping} width={1000} height={650} loading="lazy" alt="Packages and a world map representing festive delivery" className="mt-3 aspect-[16/9] w-full object-cover" />
             </article>
           </div>
         </section>

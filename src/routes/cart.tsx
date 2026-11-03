@@ -26,9 +26,9 @@ export const Route = createFileRoute("/cart")({
 
 
 function Header() {
-  
   return (
     <header className="bg-header text-header-foreground">
+      <DiwaliBar />
       <div className="flex min-h-15 items-center gap-2 px-3 py-2">
         <KamazonLogo />
         <LocationPicker className="hidden md:flex" />

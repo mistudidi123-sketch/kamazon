@@ -90,7 +90,8 @@ function CheckoutPage() {
   return (
     <div className="min-h-screen animate-in fade-in duration-500 bg-background font-body text-foreground">
       <header className="bg-header px-4 py-2 text-header-foreground">
-        <KamazonLogo />
+        <DiwaliBar />
+        <div className="pt-2"><KamazonLogo /></div>
       </header>
 
       <main className="px-4 py-6 md:px-10 md:py-8">

@@ -6,11 +6,11 @@ import {
   ChevronLeft,
   ChevronRight,
   Menu,
-  Search,
 } from "lucide-react";
 
 import { AccountNavLink } from "@/components/account-nav-link";
 import { DiwaliBar } from "@/components/diwali-bar";
+import { LocationSearch } from "@/components/location-search";
 import { SignInCard } from "@/components/sign-in-card";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { LocationPicker } from "@/components/location-picker";
@@ -100,15 +100,7 @@ function Index() {
 
           <LocationPicker className="hidden md:flex" />
 
-          <form className="flex min-w-0 flex-1 overflow-hidden rounded-md ring-2 ring-transparent focus-within:ring-accent" onSubmit={(event) => event.preventDefault()}>
-            <button type="button" className="flex items-center gap-2 bg-search-muted px-3 text-xs text-muted-foreground" aria-label="Select search category">
-              All <ChevronDown className="size-3" aria-hidden="true" />
-            </button>
-            <input className="min-w-0 flex-1 bg-card px-3 py-2.5 text-sm text-foreground outline-none" placeholder="Search Diwali gifts, sweets, décor…" aria-label="Search Amazon" />
-            <button type="submit" className="grid w-12 place-items-center bg-accent text-accent-foreground" aria-label="Search">
-              <Search className="size-5" />
-            </button>
-          </form>
+          <LocationSearch className="min-w-0 flex-1" />
 
           <a href="#" className="hidden items-center gap-1 px-2 py-2 text-sm font-semibold outline-focus xl:flex">
             <span aria-hidden="true">🇺🇸</span> EN <ChevronDown className="size-3" />

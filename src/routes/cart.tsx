@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight, Menu, ShoppingCart } from "lucide-react";
 
+import { KamazonLogo } from "@/components/kamazon-logo";
+
 import { AccountNavLink } from "@/components/account-nav-link";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { CheckoutAddress } from "@/components/checkout-address";
@@ -32,11 +34,7 @@ function Header() {
       <div className="flex min-h-15 items-center gap-2 px-3 py-2">
         <KamazonLogo />
         <LocationPicker className="hidden md:flex" />
-        <form className="flex min-w-0 flex-1 overflow-hidden rounded-md ring-2 ring-transparent focus-within:ring-accent" onSubmit={(event) => event.preventDefault()}>
-          <Button type="button" variant="ghost" className="h-auto rounded-none bg-search-muted px-3 text-xs text-muted-foreground hover:bg-search-muted" aria-label="Select search category">All <ChevronDown className="size-3" /></Button>
-          <input className="min-w-0 flex-1 bg-card px-3 py-2.5 text-sm text-foreground outline-none" placeholder="Search Amazon" aria-label="Search Amazon" />
-          <Button type="submit" className="h-auto w-12 rounded-none bg-accent p-0 text-accent-foreground hover:bg-accent" aria-label="Search"><Search className="size-5" /></Button>
-        </form>
+        <LocationSearch className="min-w-0 flex-1" />
         <AccountNavLink className="hidden lg:block" />
         <CartNavLink />
       </div>

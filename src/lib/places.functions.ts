@@ -17,7 +17,7 @@ export type PlacesSearchResponse = {
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/google_maps";
 
 export const searchPlaces = createServerFn({ method: "POST" })
-  .inputValidator((input) =>
+  .validator((input) =>
     z
       .object({ query: z.string().trim().min(2).max(120) })
       .parse(input),

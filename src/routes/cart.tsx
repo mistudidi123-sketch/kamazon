@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { KamazonLogo } from "@/components/kamazon-logo";
-
-import { ChevronDown, ChevronRight, Menu, Search, ShoppingCart } from "lucide-react";
+import { ChevronRight, Menu, ShoppingCart } from "lucide-react";
 
 import { AccountNavLink } from "@/components/account-nav-link";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { CheckoutAddress } from "@/components/checkout-address";
 import { DiwaliBar } from "@/components/diwali-bar";
+import { LocationSearch } from "@/components/location-search";
 import { LocationPicker } from "@/components/location-picker";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";

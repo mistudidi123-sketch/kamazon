@@ -10,7 +10,7 @@ import {
 
 import { AccountNavLink } from "@/components/account-nav-link";
 import { DiwaliBar } from "@/components/diwali-bar";
-import { LocationSearch } from "@/components/location-search";
+import { ProductSearch } from "@/components/product-search";
 import { SignInCard } from "@/components/sign-in-card";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { LocationPicker } from "@/components/location-picker";
@@ -100,7 +100,7 @@ function Index() {
 
           <LocationPicker className="hidden md:flex" />
 
-          <LocationSearch className="min-w-0 flex-1" />
+          <ProductSearch />
 
           <a href="#" className="hidden items-center gap-1 px-2 py-2 text-sm font-semibold outline-focus xl:flex">
             <span aria-hidden="true">🇺🇸</span> EN <ChevronDown className="size-3" />
@@ -121,6 +121,9 @@ function Index() {
           </div>
         </nav>
       </header>
+      <div className="bg-subnav/90 px-2 py-1 text-sm md:hidden">
+        <LocationPicker className="flex" />
+      </div>
 
       <main>
         <section className="relative overflow-hidden diwali-hero-bg text-hero-foreground">

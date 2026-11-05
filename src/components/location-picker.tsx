@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -76,7 +75,6 @@ export function LocationPicker({ className }: { className?: string }) {
               Save
             </Button>
           </form>
-          <DialogFooter />
         </div>
       </DialogContent>
     </Dialog>

@@ -99,13 +99,14 @@ export function LocationSearch({ onSelect }: LocationSearchProps) {
             if (query.trim().length >= 3) setOpen(true);
           }}
         />
-        <button
+        <Button
           type="submit"
-          className="grid w-12 shrink-0 place-items-center bg-cta text-cta-foreground hover:bg-cta"
+          size="icon"
+          className="h-auto w-12 shrink-0 rounded-none bg-cta text-cta-foreground hover:bg-cta"
           aria-label="Search delivery locations"
         >
           {status === "loading" ? <Loader2 className="size-5 animate-spin" /> : <Search className="size-5" />}
-        </button>
+        </Button>
       </form>
 
       {showPanel && (

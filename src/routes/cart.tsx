@@ -7,7 +7,7 @@ import { AccountNavLink } from "@/components/account-nav-link";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { CheckoutAddress } from "@/components/checkout-address";
 import { DiwaliBar } from "@/components/diwali-bar";
-import { LocationSearch } from "@/components/location-search";
+import { ProductSearch } from "@/components/product-search";
 import { LocationPicker } from "@/components/location-picker";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/lib/cart-context";
@@ -34,7 +34,7 @@ function Header() {
       <div className="flex min-h-15 items-center gap-2 px-3 py-2">
         <KamazonLogo />
         <LocationPicker className="hidden md:flex" />
-        <LocationSearch className="min-w-0 flex-1" />
+        <ProductSearch />
         <AccountNavLink className="hidden lg:block" />
         <CartNavLink />
       </div>

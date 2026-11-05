@@ -43,11 +43,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (stored) setCart(JSON.parse(stored) as CartLine[]);
       const storedSaved = window.sessionStorage.getItem(SAVED_STORAGE_KEY);
       if (storedSaved) setSaved(JSON.parse(storedSaved) as CartLine[]);
-      const storedLocation = window.sessionStorage.getItem(LOCATION_STORAGE_KEY);
-      if (storedLocation) setLocation(storedLocation);
     } catch {
       window.sessionStorage.removeItem(CART_STORAGE_KEY);
       window.sessionStorage.removeItem(SAVED_STORAGE_KEY);
+    }
+    try {
+      const storedLocation =
+        window.localStorage.getItem(LOCATION_STORAGE_KEY) ??
+        window.sessionStorage.getItem(LOCATION_STORAGE_KEY);
+      if (storedLocation) setLocation(storedLocation);
+    } catch {
+      // Keep the default delivery location if browser storage is unavailable.
     } finally {
       setHydrated(true);
     }
@@ -57,7 +63,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (!hydrated) return;
     window.sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
     window.sessionStorage.setItem(SAVED_STORAGE_KEY, JSON.stringify(saved));
-    window.sessionStorage.setItem(LOCATION_STORAGE_KEY, location);
+    window.localStorage.setItem(LOCATION_STORAGE_KEY, location);
   }, [cart, saved, location, hydrated]);
 
   const value = useMemo<CartContextValue>(() => {

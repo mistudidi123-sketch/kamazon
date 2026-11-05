@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import {
-  ChevronDown,
   ExternalLink,
   GraduationCap,
   Landmark,
@@ -10,7 +9,12 @@ import {
   Store,
 } from "lucide-react";
 
+import { Button } from "@/components/ui/button";
 import { searchPlaces, type PlaceResult } from "@/lib/places.functions";
+
+type LocationSearchProps = {
+  onSelect: (place: PlaceResult) => void;
+};
 
 function resultIcon(types: string[]) {
   const joined = types.join(" ");
@@ -21,7 +25,7 @@ function resultIcon(types: string[]) {
   return MapPin;
 }
 
-export function LocationSearch({ className }: { className?: string }) {
+export function LocationSearch({ onSelect }: LocationSearchProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<PlaceResult[]>([]);
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
@@ -76,25 +80,18 @@ export function LocationSearch({ className }: { className?: string }) {
   const showPanel = open && query.trim().length >= 3;
 
   return (
-    <div ref={wrapperRef} className={`relative min-w-0 ${className ?? ""}`}>
+    <div ref={wrapperRef} className="relative min-w-0">
       <form
-        className="flex overflow-hidden rounded-md ring-2 ring-transparent focus-within:ring-accent"
+        className="flex overflow-hidden rounded-md border border-border bg-background ring-2 ring-transparent focus-within:ring-accent"
         onSubmit={(event) => {
           event.preventDefault();
           if (results.length > 0) setOpen(true);
         }}
       >
-        <button
-          type="button"
-          className="flex shrink-0 items-center gap-2 bg-search-muted px-3 text-xs text-muted-foreground"
-          aria-label="Select search category"
-        >
-          All <ChevronDown className="size-3" aria-hidden="true" />
-        </button>
         <input
-          className="min-w-0 flex-1 bg-card px-3 py-2.5 text-sm text-foreground outline-none"
-          placeholder="Search any village, town, school, shop or landmark…"
-          aria-label="Universal location search"
+          className="min-w-0 flex-1 bg-background px-3 py-2.5 text-sm text-foreground outline-none"
+          placeholder="Search a village, town, address or place"
+          aria-label="Search delivery locations"
           autoComplete="off"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -102,20 +99,21 @@ export function LocationSearch({ className }: { className?: string }) {
             if (query.trim().length >= 3) setOpen(true);
           }}
         />
-        <button
+        <Button
           type="submit"
-          className="grid w-12 shrink-0 place-items-center bg-accent text-accent-foreground"
-          aria-label="Search locations"
+          size="icon"
+          className="h-auto w-12 shrink-0 rounded-none bg-cta text-cta-foreground hover:bg-cta"
+          aria-label="Search delivery locations"
         >
           {status === "loading" ? <Loader2 className="size-5 animate-spin" /> : <Search className="size-5" />}
-        </button>
+        </Button>
       </form>
 
       {showPanel && (
         <div
           role="listbox"
-          aria-label="Location results"
-          className="absolute left-0 top-full z-30 mt-1 max-h-[70vh] w-[min(560px,calc(100vw-2rem))] overflow-y-auto rounded-md border border-border bg-card text-card-foreground shadow-xl"
+          aria-label="Delivery location results"
+          className="absolute left-0 top-full z-30 mt-2 max-h-[60vh] w-full min-w-[min(540px,calc(100vw-2rem))] overflow-y-auto rounded-md border border-border bg-card text-card-foreground shadow-xl"
         >
           {status === "loading" && (
             <p className="flex items-center gap-2 px-4 py-4 text-sm text-muted-foreground">
@@ -142,7 +140,7 @@ export function LocationSearch({ className }: { className?: string }) {
                       href={place.mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-start gap-3 px-4 py-3 transition-colors hover:bg-muted"
+                      className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-muted"
                     >
                       <Icon className="mt-0.5 size-5 shrink-0 text-accent" aria-hidden="true" />
                       <span className="min-w-0 flex-1">
@@ -151,17 +149,27 @@ export function LocationSearch({ className }: { className?: string }) {
                           {place.address || "Address unavailable"}
                         </span>
                       </span>
-                      <span className="mt-0.5 inline-flex shrink-0 items-center gap-1 rounded-full border border-border px-2 py-1 text-[11px] font-semibold text-muted-foreground">
-                        Maps <ExternalLink className="size-3" aria-hidden="true" />
-                      </span>
                     </a>
+                    <div className="flex items-center justify-end gap-2 px-4 pb-3">
+                      <a
+                        href={place.mapUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-muted-foreground hover:text-foreground"
+                      >
+                        Maps <ExternalLink className="size-3" aria-hidden="true" />
+                      </a>
+                      <Button type="button" size="sm" onClick={() => onSelect(place)}>
+                        Select this address
+                      </Button>
+                    </div>
                   </li>
                 );
               })}
             </ul>
           )}
           <p className="border-t border-border px-4 py-2 text-[11px] text-muted-foreground">
-            Search results from Google Maps — open any result to see it on the map.
+            Choose an address to save it as your delivery location.
           </p>
         </div>
       )}

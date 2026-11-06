@@ -62,7 +62,7 @@ export function FestiveBanner({
             <img src={categoryGrid} alt="A mix of everyday shopping categories" className="festive-tile" />
           </div>
           <Button asChild className="mt-auto w-full bg-card font-bold text-card-foreground hover:bg-card/90">
-            <Link to="/#featured">Explore festive picks</Link>
+            <a href="#featured">Explore festive picks</a>
           </Button>
         </article>
 

@@ -2,7 +2,6 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { KamazonLogo } from "@/components/kamazon-logo";
 
 import {
-  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Menu,
@@ -14,6 +13,7 @@ import { ProductSearch } from "@/components/product-search";
 import { SignInCard } from "@/components/sign-in-card";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { LocationPicker } from "@/components/location-picker";
+import { CountrySelector } from "@/components/country-selector";
 import categoryGrid from "@/assets/category-grid.jpg";
 import diwaliGifts from "@/assets/diwali-gifts.jpg";
 import diwaliHero from "@/assets/diwali-hero.jpg";
@@ -102,9 +102,7 @@ function Index() {
 
           <ProductSearch />
 
-          <a href="#" className="hidden items-center gap-1 px-2 py-2 text-sm font-semibold outline-focus xl:flex">
-            <span aria-hidden="true">🇺🇸</span> EN <ChevronDown className="size-3" />
-          </a>
+          <CountrySelector />
           <AccountNavLink className="hidden lg:block" />
           <a href="#" className="hidden px-2 py-1.5 leading-tight outline-focus lg:block">
             <small className="block text-[11px]">Returns</small>

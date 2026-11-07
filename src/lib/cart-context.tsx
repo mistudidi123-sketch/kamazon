@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
+import { getCountry } from "@/lib/countries";
+
 export type Product = {
   id: string;
   name: string;
@@ -17,6 +19,8 @@ type CartContextValue = {
   subtotal: number;
   location: string;
   setLocation: (value: string) => void;
+  countryCode: string;
+  setCountryCode: (value: string) => void;
   addToCart: (product: Product) => void;
   changeQuantity: (id: string, amount: number) => void;
   removeItem: (id: string) => void;
@@ -29,12 +33,15 @@ const CartContext = createContext<CartContextValue | undefined>(undefined);
 const CART_STORAGE_KEY = "amazon-romania-cart";
 const SAVED_STORAGE_KEY = "amazon-romania-saved";
 const LOCATION_STORAGE_KEY = "amazon-romania-location";
+const COUNTRY_STORAGE_KEY = "kamazon-country-code";
 const DEFAULT_LOCATION = "Romania";
+const DEFAULT_COUNTRY_CODE = "US";
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartLine[]>([]);
   const [saved, setSaved] = useState<CartLine[]>([]);
   const [location, setLocation] = useState(DEFAULT_LOCATION);
+  const [countryCode, setCountryCode] = useState(DEFAULT_COUNTRY_CODE);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -52,6 +59,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
         window.localStorage.getItem(LOCATION_STORAGE_KEY) ??
         window.sessionStorage.getItem(LOCATION_STORAGE_KEY);
       if (storedLocation) setLocation(storedLocation);
+      const storedCountryCode = window.localStorage.getItem(COUNTRY_STORAGE_KEY);
+      if (storedCountryCode) setCountryCode(getCountry(storedCountryCode).code);
     } catch {
       // Keep the default delivery location if browser storage is unavailable.
     } finally {
@@ -64,7 +73,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     window.sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cart));
     window.sessionStorage.setItem(SAVED_STORAGE_KEY, JSON.stringify(saved));
     window.localStorage.setItem(LOCATION_STORAGE_KEY, location);
-  }, [cart, saved, location, hydrated]);
+    window.localStorage.setItem(COUNTRY_STORAGE_KEY, countryCode);
+  }, [cart, saved, location, countryCode, hydrated]);
 
   const value = useMemo<CartContextValue>(() => {
     const mergeLine = (list: CartLine[], line: CartLine) => {
@@ -79,7 +89,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       cart,
       saved,
       location,
+      countryCode,
       setLocation: (next: string) => setLocation(next.trim() || DEFAULT_LOCATION),
+      setCountryCode: (next: string) => setCountryCode(getCountry(next).code),
       itemCount: cart.reduce((total, item) => total + item.quantity, 0),
       subtotal: cart.reduce((total, item) => total + item.price * item.quantity, 0),
       addToCart: (product: Product) =>
@@ -108,7 +120,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       },
       removeSaved: (id) => setSaved((current) => current.filter((item) => item.id !== id)),
     };
-  }, [cart, saved, location]);
+  }, [cart, saved, location, countryCode]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

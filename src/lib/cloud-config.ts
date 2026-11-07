@@ -4,5 +4,5 @@ export function hasSupabaseConfiguration(url: string | undefined, publishableKey
 
 export function isSupabaseConfigured() {
   const env = import.meta.env;
-  return hasSupabaseConfiguration(env?.VITE_SUPABASE_URL, env?.VITE_SUPABASE_PUBLISHABLE_KEY);
+  return hasSupabaseConfiguration(env?.["VITE_SUPABASE_URL"], env?.["VITE_SUPABASE_PUBLISHABLE_KEY"]);
 }

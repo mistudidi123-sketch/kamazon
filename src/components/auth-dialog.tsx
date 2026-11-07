@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { isSupabaseConfigured } from "@/lib/cloud-config";
 
 type Props = {
   open: boolean;
@@ -22,6 +23,7 @@ type Errors = Partial<Record<"fullName" | "email" | "password" | "form", string>
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
 export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" }: Props) {
+  const cloudConfigured = isSupabaseConfigured();
   const [mode, setMode] = useState<"signup" | "signin">(defaultMode);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -45,6 +47,10 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
   };
 
   const handleGoogle = async () => {
+    if (!cloudConfigured) {
+      setErrors({ form: "Sign-in services are temporarily unavailable. Please try again later." });
+      return;
+    }
     setBusy("google");
     setErrors({});
     const result = await lovable.auth.signInWithOAuth("google", {
@@ -79,6 +85,10 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (!cloudConfigured) {
+      setErrors({ form: "Sign-in services are temporarily unavailable. Please try again later." });
+      return;
+    }
     if (!validate()) return;
 
     const cleanEmail = email.trim().toLowerCase();
@@ -171,7 +181,7 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
                 type="button"
                 variant="outline"
                 className="mt-4 h-11 w-full gap-2 font-semibold"
-                disabled={loading}
+                disabled={loading || !cloudConfigured}
                 onClick={handleGoogle}
               >
                 {busy === "google" ? (
@@ -219,7 +229,7 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
                   onChange={setEmail}
                   autoComplete="email"
                   error={errors.email}
-                  disabled={loading}
+                  disabled={loading || !cloudConfigured}
                 />
                 <Field
                   id="auth-password"
@@ -230,14 +240,14 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
                   onChange={setPassword}
                   autoComplete={mode === "signup" ? "new-password" : "current-password"}
                   error={errors.password}
-                  disabled={loading}
+                  disabled={loading || !cloudConfigured}
                   hint={mode === "signup" ? "At least 8 characters, with letters and numbers." : undefined}
                 />
 
                 <Button
                   type="submit"
                   className="h-11 w-full bg-cta text-base font-semibold text-cta-foreground hover:bg-cta/90"
-                  disabled={loading}
+                  disabled={loading || !cloudConfigured}
                 >
                   {busy === "form" ? <Loader2 className="mr-2 size-4 animate-spin" /> : null}
                   {mode === "signup" ? "Create account" : "Sign in"}
@@ -245,7 +255,7 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
               </form>
 
               <div className="mt-5 flex flex-col items-center gap-2 border-t border-border pt-4 text-sm sm:flex-row sm:justify-between">
-                <button type="button" className="font-semibold text-primary hover:underline" onClick={switchMode} disabled={loading}>
+                <button type="button" className="font-semibold text-primary hover:underline" onClick={switchMode} disabled={loading || !cloudConfigured}>
                   {mode === "signup" ? "Already have an account? Sign in" : "New here? Create an account"}
                 </button>
                 {onSkip ? (

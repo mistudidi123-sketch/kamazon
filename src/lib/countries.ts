@@ -36,7 +36,8 @@ export const COUNTRIES: Country[] = COUNTRY_CODES.trim()
   .sort((left, right) => left.name.localeCompare(right.name, "en"));
 
 export function getCountry(code: string) {
-  return COUNTRIES.find((country) => country.code === code) ?? COUNTRIES.find((country) => country.code === "US") ?? COUNTRIES[0];
+  const country = COUNTRIES.find((item) => item.code === code) ?? COUNTRIES.find((item) => item.code === "US");
+  return country ?? { code: "US", name: "United States" };
 }
 
 export function countryFlag(code: string) {

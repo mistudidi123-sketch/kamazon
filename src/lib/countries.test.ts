@@ -9,7 +9,7 @@ describe("country choices", () => {
   });
 
   it("lists every country alphabetically and resolves the selected country", () => {
-    const sortedNames = COUNTRIES.map((country) => country.name).toSorted((left, right) => left.localeCompare(right, "en"));
+    const sortedNames = [...COUNTRIES.map((country) => country.name)].sort((left, right) => left.localeCompare(right, "en"));
     assert.deepEqual(COUNTRIES.map((country) => country.name), sortedNames);
     assert.deepEqual(getCountry("IN"), { code: "IN", name: "India" });
   });

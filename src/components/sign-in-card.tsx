@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AuthDialog } from "@/components/auth-dialog";
 import { formatAddress, hasAddress, useProfile } from "@/lib/profile";
 import { useAuth } from "@/lib/auth-context";
+import { isSupabaseConfigured } from "@/lib/cloud-config";
 
 export function SignInCard() {
   const { user, loading } = useAuth();
@@ -27,6 +28,15 @@ export function SignInCard() {
         >
           {hasAddress(profile) ? "Manage your address" : "Add delivery address"}
         </Link>
+      </article>
+    );
+  }
+
+  if (!isSupabaseConfigured()) {
+    return (
+      <article className="shop-card min-h-0">
+        <h2>Account services are temporarily unavailable</h2>
+        <p className="mt-2 text-sm text-muted-foreground">Please try signing in again later.</p>
       </article>
     );
   }

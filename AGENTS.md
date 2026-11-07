@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Check a shared browser-safe Cloud configuration predicate before accessing the Supabase client, so missing runtime bindings cannot blank public pages.

@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { isSupabaseConfigured } from "@/lib/cloud-config";
 
 export type Profile = {
   full_name: string;
@@ -34,12 +35,13 @@ export function useProfile() {
 
   const query = useQuery({
     queryKey: ["profile", userId],
-    enabled: Boolean(userId),
+    enabled: Boolean(userId) && isSupabaseConfigured(),
     queryFn: async (): Promise<Profile> => {
+      if (!isSupabaseConfigured() || !userId) return emptyProfile;
       const { data, error } = await supabase
         .from("profiles")
         .select(COLUMNS)
-        .eq("id", userId!)
+        .eq("id", userId)
         .maybeSingle();
       if (error) throw error;
       if (!data) return emptyProfile;
@@ -59,6 +61,7 @@ export function useProfile() {
   const save = useMutation({
     mutationFn: async (values: Profile) => {
       if (!userId) throw new Error("Not signed in");
+      if (!isSupabaseConfigured()) throw new Error("Sign-in services are temporarily unavailable. Please try again later.");
       const { error } = await supabase
         .from("profiles")
         .upsert({ id: userId, email: user?.email ?? null, ...values }, { onConflict: "id" });

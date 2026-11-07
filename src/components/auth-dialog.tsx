@@ -207,6 +207,12 @@ export function AuthDialog({ open, onOpenChange, onSkip, defaultMode = "signup" 
                 </p>
               ) : null}
 
+              {!cloudConfigured ? (
+                <p role="alert" className="mb-3 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                  Sign-in services are temporarily unavailable. Please try again later.
+                </p>
+              ) : null}
+
               <form className="space-y-3" onSubmit={handleSubmit} noValidate>
                 {mode === "signup" ? (
                   <Field

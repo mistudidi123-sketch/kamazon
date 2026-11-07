@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Check a shared browser-safe Cloud configuration predicate before accessing the Supabase client, so missing runtime bindings cannot blank public pages.
+- Keep the selected storefront country separate from the delivery address and persist it through shared app state, so market selection never overwrites customer address details.

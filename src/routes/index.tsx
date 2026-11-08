@@ -87,7 +87,8 @@ const products = {
 function Index() {
   const { addToCart: addCartItem, locationChanged, locationReady } = useCart();
   const navigate = useNavigate({ from: "/" });
-  const [locationPickerOpen, setLocationPickerOpen] = useState(false);
+  const [desktopLocationPickerOpen, setDesktopLocationPickerOpen] = useState(false);
+  const [mobileLocationPickerOpen, setMobileLocationPickerOpen] = useState(false);
   const [addressNoticeDismissed, setAddressNoticeDismissed] = useState(false);
 
   const addToCart = (product: Product) => {
@@ -104,8 +105,8 @@ function Index() {
 
           <LocationPicker
             className="hidden md:flex"
-            open={locationPickerOpen}
-            onOpenChange={setLocationPickerOpen}
+            open={desktopLocationPickerOpen}
+            onOpenChange={setDesktopLocationPickerOpen}
           />
 
           <ProductSearch />
@@ -130,8 +131,8 @@ function Index() {
       <div className="bg-subnav/90 px-2 py-1 text-sm md:hidden">
         <LocationPicker
           className="flex"
-          open={locationPickerOpen}
-          onOpenChange={setLocationPickerOpen}
+          open={mobileLocationPickerOpen}
+          onOpenChange={setMobileLocationPickerOpen}
         />
       </div>
 
@@ -144,7 +145,17 @@ function Index() {
                 <Button type="button" variant="outline" onClick={() => setAddressNoticeDismissed(true)}>
                   Don't Change
                 </Button>
-                <Button type="button" className="bg-cta text-cta-foreground hover:bg-cta/90" onClick={() => setLocationPickerOpen(true)}>
+                <Button
+                  type="button"
+                  className="bg-cta text-cta-foreground hover:bg-cta/90"
+                  onClick={() => {
+                    if (window.matchMedia("(min-width: 768px)").matches) {
+                      setDesktopLocationPickerOpen(true);
+                    } else {
+                      setMobileLocationPickerOpen(true);
+                    }
+                  }}
+                >
                   Change Address
                 </Button>
               </div>

@@ -15,18 +15,37 @@ import { useCart } from "@/lib/cart-context";
 import { LocationSearch } from "@/components/location-search";
 import type { PlaceResult } from "@/lib/places.functions";
 
-export function LocationPicker({ className }: { className?: string }) {
+type LocationPickerProps = {
+  className?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+};
+
+export function LocationPicker({ className, open: controlledOpen, onOpenChange }: LocationPickerProps) {
   const { location, setLocation } = useCart();
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
   const [draft, setDraft] = useState("");
+  const open = controlledOpen ?? internalOpen;
+
+  const updateOpen = (nextOpen: boolean) => {
+    setInternalOpen(nextOpen);
+    onOpenChange?.(nextOpen);
+  };
+
+  const saveLocation = (nextLocation: string) => {
+    const trimmed = nextLocation.trim();
+    if (!trimmed) return;
+    setLocation(trimmed);
+    setDraft("");
+    updateOpen(false);
+  };
 
   const choosePlace = (place: PlaceResult) => {
-    setLocation([place.name, place.address].filter(Boolean).join(", "));
-    setOpen(false);
+    saveLocation([place.name, place.address].filter(Boolean).join(", "));
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={updateOpen}>
       <DialogTrigger asChild>
         <Button
           type="button"
@@ -60,8 +79,7 @@ export function LocationPicker({ className }: { className?: string }) {
               event.preventDefault();
               const nextLocation = draft.trim();
               if (!nextLocation) return;
-              setLocation(nextLocation);
-              setOpen(false);
+              saveLocation(nextLocation);
             }}
             className="flex gap-2"
           >

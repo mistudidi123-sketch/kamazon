@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { KamazonLogo } from "@/components/kamazon-logo";
+import { useState } from "react";
 
 import {
   ChevronLeft,
@@ -14,6 +15,7 @@ import { SignInCard } from "@/components/sign-in-card";
 import { CartNavLink } from "@/components/cart-nav-link";
 import { LocationPicker } from "@/components/location-picker";
 import { CountrySelector } from "@/components/country-selector";
+import { Button } from "@/components/ui/button";
 import categoryGrid from "@/assets/category-grid.jpg";
 import diwaliGifts from "@/assets/diwali-gifts.jpg";
 import diwaliHero from "@/assets/diwali-hero.jpg";
@@ -83,8 +85,11 @@ const products = {
 
 
 function Index() {
-  const { addToCart: addCartItem } = useCart();
+  const { addToCart: addCartItem, locationChanged, locationReady } = useCart();
   const navigate = useNavigate({ from: "/" });
+  const [desktopLocationPickerOpen, setDesktopLocationPickerOpen] = useState(false);
+  const [mobileLocationPickerOpen, setMobileLocationPickerOpen] = useState(false);
+  const [addressNoticeDismissed, setAddressNoticeDismissed] = useState(false);
 
   const addToCart = (product: Product) => {
     addCartItem(product);
@@ -98,7 +103,11 @@ function Index() {
         <div className="flex min-h-15 items-center gap-2 px-3 py-2">
           <KamazonLogo />
 
-          <LocationPicker className="hidden md:flex" />
+          <LocationPicker
+            className="hidden md:flex"
+            open={desktopLocationPickerOpen}
+            onOpenChange={setDesktopLocationPickerOpen}
+          />
 
           <ProductSearch />
 
@@ -120,18 +129,38 @@ function Index() {
         </nav>
       </header>
       <div className="bg-subnav/90 px-2 py-1 text-sm md:hidden">
-        <LocationPicker className="flex" />
+        <LocationPicker
+          className="flex"
+          open={mobileLocationPickerOpen}
+          onOpenChange={setMobileLocationPickerOpen}
+        />
       </div>
 
       <main>
         <section className="relative overflow-hidden diwali-hero-bg text-hero-foreground">
-          <div className="absolute left-5 top-0 z-20 w-[430px] max-w-[calc(100%-2.5rem)] rounded-b-md bg-card p-4 text-card-foreground shadow-xl">
-            <p className="text-sm font-semibold leading-5">We're showing you items that ship to RO. To see items that ship to a different country, change your delivery address.</p>
-            <div className="mt-3 flex justify-end gap-3">
-              <button type="button" className="rounded-md border border-border bg-card px-4 py-2 text-sm font-semibold shadow-sm">Don't Change</button>
-              <button type="button" className="rounded-md bg-cta px-4 py-2 text-sm font-semibold text-cta-foreground shadow-sm">Change Address</button>
+          {locationReady && !locationChanged && !addressNoticeDismissed && (
+            <div className="absolute left-5 top-0 z-20 w-[430px] max-w-[calc(100%-2.5rem)] rounded-b-md bg-card p-4 text-card-foreground shadow-xl">
+              <p className="text-sm font-semibold leading-5">We're showing you items that ship to RO. To see items that ship to a different country, change your delivery address.</p>
+              <div className="mt-3 flex flex-wrap justify-end gap-3">
+                <Button type="button" variant="outline" onClick={() => setAddressNoticeDismissed(true)}>
+                  Don't Change
+                </Button>
+                <Button
+                  type="button"
+                  className="bg-cta text-cta-foreground hover:bg-cta/90"
+                  onClick={() => {
+                    if (window.matchMedia("(min-width: 768px)").matches) {
+                      setDesktopLocationPickerOpen(true);
+                    } else {
+                      setMobileLocationPickerOpen(true);
+                    }
+                  }}
+                >
+                  Change Address
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="grid min-h-[470px] items-center gap-6 px-7 pb-20 pt-36 md:grid-cols-[0.86fr_1.14fr] md:px-16 md:pb-16 md:pt-20">
             <div className="relative z-10 text-center md:text-left">

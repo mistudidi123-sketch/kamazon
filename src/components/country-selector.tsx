@@ -62,7 +62,7 @@ export function CountrySelector({ className }: { className?: string }) {
             autoFocus
           />
         </div>
-        <div role="listbox" aria-label="Countries and regions" className="min-h-0 overflow-y-auto px-2 pb-3">
+        <div role="listbox" aria-label="Countries and regions" className="max-h-[55vh] min-h-0 overflow-y-auto overscroll-contain px-2 pb-3">
           {filteredCountries.length ? (
             filteredCountries.map((country) => {
               const isSelected = country.code === selected.code;
